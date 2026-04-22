@@ -86,9 +86,39 @@
     </div>
   </section>
 
-  <!-- Findings -->
+  <!-- Stay length section -->
   <section class="section fade-up">
-    <div class="section-label">Key findings</div>
+    <div class="section-label">Stay length by travel type</div>
+    <div class="content-block">
+      <h2>The further you travel, the longer you stay</h2>
+      <p>Intercontinental exchanges average 7.8 nights — 44% longer than domestic stays at 5.4 nights. This makes economic sense: members who travel long-haul justify the cost by staying longer. The top 10% of intercontinental exchanges last 15+ nights.</p>
+    </div>
+
+    <div class="chart-wrap">
+      <div class="chart-title">Average and median nights by travel type</div>
+      <div class="chart-sub">Completed exchanges only · nights &gt; 0</div>
+      <canvas id="nightsChart" style="max-height:180px;"></canvas>
+    </div>
+
+    <div class="finding-grid">
+      <div class="finding-card">
+        <div class="finding-title">Domestic — short breaks</div>
+        <div class="finding-text">Median 4 nights. Domestic exchanges are often weekend or short holiday trips — convenient and low-commitment</div>
+      </div>
+      <div class="finding-card">
+        <div class="finding-title">Continental — week-long holidays</div>
+        <div class="finding-text">Median 6 nights. A full week away — the classic European holiday pattern</div>
+      </div>
+      <div class="finding-card">
+        <div class="finding-title">Intercontinental — proper holidays</div>
+        <div class="finding-text">Median 6 nights but P90 of 15+ nights. Long-haul travellers commit to extended stays to justify the journey</div>
+      </div>
+      <div class="finding-card">
+        <div class="finding-title">Covid compounded the loss</div>
+        <div class="finding-text">When intercontinental travel collapsed in 2020, the platform lost its longest stays — replaced by shorter domestic breaks, reducing overall platform engagement</div>
+      </div>
+    </div>
+  </section>
     <div class="finding-grid">
       <div class="finding-card">
         <div class="finding-title">Lockdown impact — immediate</div>
@@ -150,7 +180,54 @@ const data = [
   {m:"2022-11",D:50.6,C:30.4,I:19.0}
 ];
 
-const labels = data.map(d => d.m);
+new Chart(document.getElementById('nightsChart').getContext('2d'), {
+  type: 'bar',
+  data: {
+    labels: ['Domestic', 'Continental', 'Intercontinental'],
+    datasets: [
+      {
+        label: 'Average nights',
+        data: [5.4, 6.8, 7.8],
+        backgroundColor: ['#D3D1C7', '#B5D4F4', '#85B7EB'],
+        borderColor: ['#888780', '#378ADD', '#185FA5'],
+        borderWidth: 1,
+        borderRadius: 4
+      },
+      {
+        label: 'Median nights',
+        data: [4, 6, 6],
+        backgroundColor: ['#f0ede8', '#e6f1fb', '#b5d4f4'],
+        borderColor: ['#888780', '#378ADD', '#185FA5'],
+        borderWidth: 1,
+        borderRadius: 4
+      }
+    ]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        position: 'bottom',
+        labels: { font: { family: "'DM Mono', monospace", size: 11 }, padding: 16, boxWidth: 24 }
+      },
+      tooltip: {
+        backgroundColor: '#1a1916',
+        titleFont: { family: "'DM Mono', monospace", size: 11 },
+        bodyFont:  { family: "'DM Mono', monospace", size: 11 },
+        callbacks: { label: ctx => ` ${ctx.dataset.label}: ${ctx.parsed.y} nights` }
+      }
+    },
+    scales: {
+      x: { ticks: { font: { family: "'DM Mono', monospace", size: 11 }, color: '#9c9a94' }, grid: { display: false } },
+      y: {
+        min: 0, max: 10,
+        ticks: { font: { family: "'DM Mono', monospace", size: 11 }, color: '#9c9a94', callback: v => v + 'n' },
+        grid: { color: '#f0ede8' }
+      }
+    }
+  }
+});
+
 const covidStart = labels.indexOf('2020-03');
 const covidPeak  = labels.indexOf('2020-05');
 const wave2      = labels.indexOf('2021-02');
