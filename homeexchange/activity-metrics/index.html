@@ -147,8 +147,12 @@
   <section class="section fade-up">
     <div class="section-label">Query</div>
     <div class="code-block">
-      <div class="code-block-label">BigQuery SQL · activity_metrics.sql</div>
-      <pre><span class="code-kw">SELECT</span>
+      <div class="code-block-toggle" onclick="this.parentElement.classList.toggle('open')">
+        <span class="code-block-label">BigQuery SQL · activity_metrics.sql</span>
+        <span class="code-block-chevron">▾ show query</span>
+      </div>
+      <div class="code-block-body">
+        <pre><span class="code-kw">SELECT</span>
   customer_segment,
   <span class="code-fn">COUNT</span>(*)                                           <span class="code-kw">AS</span> total_customers,
   <span class="code-fn">APPROX_QUANTILES</span>(total_requests, <span class="code-nu">100</span>)[<span class="code-fn">OFFSET</span>(<span class="code-nu">50</span>)]   <span class="code-kw">AS</span> median_requests,
@@ -167,6 +171,7 @@
     <span class="code-kw">WHEN</span> <span class="code-st">'Second Year Customer'</span> <span class="code-kw">THEN</span> <span class="code-nu">2</span>
     <span class="code-kw">WHEN</span> <span class="code-st">'High Value Customer'</span>  <span class="code-kw">THEN</span> <span class="code-nu">3</span>
   <span class="code-kw">END</span></pre>
+      </div>
     </div>
   </section>
 
@@ -421,6 +426,14 @@ new Chart(document.getElementById('nightsHomesChart').getContext('2d'), {
       y: { ticks: { font: { family: "'DM Mono', monospace", size: 11 }, color: '#9c9a94' }, grid: { color: '#f0ede8' } }
     }
   }
+});
+</script>
+<script>
+document.querySelectorAll('.code-block-toggle').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const open = btn.parentElement.classList.contains('open');
+    btn.querySelector('.code-block-chevron').textContent = open ? '▾ show query' : '▴ hide query';
+  });
 });
 </script>
 </body>
