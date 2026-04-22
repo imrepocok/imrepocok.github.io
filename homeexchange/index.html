@@ -3,210 +3,85 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>HomeExchange — Customer Behaviour &amp; Retention Analysis — Tamás Imre</title>
+  <title>HomeExchange &#8212; Customer Behaviour &amp; Retention Analysis &#8212; Tam&#225;s Imre</title>
   <link rel="stylesheet" href="../style.css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/topojson-client@3/dist/topojson-client.min.js"></script>
   <style>
-    /* Layout */
-    .page-wrap {
-      display: grid;
-      grid-template-columns: 200px minmax(0, 1fr);
-      gap: 0;
-      max-width: 1020px;
-      margin: 0 auto;
-      padding: 0 1.5rem;
-    }
-
-    /* Sidebar */
-    .sidebar {
-      position: sticky;
-      top: 80px;
-      height: calc(100vh - 100px);
-      padding: 2rem 1.5rem 2rem 0;
-      border-right: 0.5px solid var(--border);
-      overflow-y: auto;
-    }
-
-    .sidebar-title {
-      font-family: 'DM Mono', monospace;
-      font-size: 10px;
-      letter-spacing: 0.1em;
-      color: var(--text-tertiary);
-      text-transform: uppercase;
-      margin-bottom: 1.25rem;
-    }
-
+    .page-wrap { display: grid; grid-template-columns: 190px minmax(0,1fr); max-width: 1020px; margin: 0 auto; padding: 0 1.5rem; }
+    .sidebar { position: sticky; top: 80px; height: calc(100vh - 100px); padding: 2.5rem 1.5rem 2rem 0; border-right: 0.5px solid #e8e6e0; overflow-y: auto; }
+    .sidebar-title { font-family: "DM Mono",monospace; font-size: 10px; letter-spacing: .1em; color: #9c9a94; text-transform: uppercase; margin-bottom: 1.25rem; }
     .sidebar-nav { list-style: none; display: flex; flex-direction: column; gap: 2px; }
-
-    .sidebar-nav a {
-      display: block;
-      font-family: 'DM Mono', monospace;
-      font-size: 11px;
-      color: var(--text-tertiary);
-      text-decoration: none;
-      padding: 5px 8px;
-      border-radius: 4px;
-      line-height: 1.4;
-      transition: color 0.15s, background 0.15s;
-    }
-
-    .sidebar-nav a:hover { color: var(--text-primary); }
-
-    .sidebar-nav a.active {
-      color: var(--text-primary);
-      font-weight: 500;
-      background: var(--tag-bg);
-    }
-
-    .sidebar-nav .nav-num {
-      font-size: 9px;
-      color: var(--text-tertiary);
-      display: block;
-      margin-bottom: 1px;
-    }
-
-    .sidebar-nav a.active .nav-num { color: var(--text-secondary); }
-
-    /* Main content */
-    .main-content {
-      padding: 3rem 0 4rem 2.5rem;
-    }
-
-    /* Project header */
-    .project-header {
-      padding-bottom: 2.5rem;
-      margin-bottom: 0;
-      border-bottom: 0.5px solid var(--border);
-    }
-
-    .project-header h1 {
-      font-size: clamp(1.8rem, 4vw, 2.6rem);
-      font-weight: 300;
-      letter-spacing: -0.02em;
-      line-height: 1.2;
-      margin-bottom: 1rem;
-    }
-
+    .sidebar-nav a { display: block; font-family: "DM Mono",monospace; font-size: 11px; color: #9c9a94; text-decoration: none; padding: 5px 8px; border-radius: 4px; line-height: 1.5; transition: color .15s, background .15s; }
+    .sidebar-nav a:hover { color: #1a1916; }
+    .sidebar-nav a.active { color: #1a1916; font-weight: 500; background: #f0ede8; }
+    .nav-num { font-size: 9px; color: #9c9a94; display: block; margin-bottom: 1px; }
+    .sidebar-nav a.active .nav-num { color: #5c5a54; }
+    .main-content { padding: 3rem 0 4rem 2.5rem; }
+    .project-header { padding-bottom: 2.5rem; border-bottom: 0.5px solid #e8e6e0; }
+    .project-header h1 { font-size: clamp(1.8rem,4vw,2.6rem); font-weight: 300; letter-spacing: -.02em; line-height: 1.2; margin-bottom: 1rem; }
     .project-header h1 strong { font-weight: 500; }
-
-    .project-header p {
-      font-size: 14px;
-      font-weight: 300;
-      color: var(--text-secondary);
-      max-width: 520px;
-      line-height: 1.8;
-      margin-bottom: 1.25rem;
-    }
-
-    /* Chapter sections */
-    .chapter {
-      padding: 3rem 0;
-      border-bottom: 0.5px solid var(--border);
-      scroll-margin-top: 90px;
-    }
-
+    .project-header p { font-size: 14px; font-weight: 300; color: #5c5a54; max-width: 520px; line-height: 1.8; margin-bottom: 1.25rem; }
+    .chapter { padding: 3rem 0; border-bottom: 0.5px solid #e8e6e0; scroll-margin-top: 90px; }
     .chapter:last-child { border-bottom: none; }
-
-    .chapter-header {
-      margin-bottom: 2rem;
-    }
-
-    .chapter-num {
-      font-family: 'DM Mono', monospace;
-      font-size: 10px;
-      letter-spacing: 0.1em;
-      color: var(--text-tertiary);
-      text-transform: uppercase;
-      margin-bottom: 6px;
-    }
-
-    .chapter-title {
-      font-size: 20px;
-      font-weight: 500;
-      letter-spacing: -0.01em;
-      margin-bottom: 6px;
-    }
-
-    .chapter-desc {
-      font-size: 13px;
-      color: var(--text-secondary);
-      font-weight: 300;
-      line-height: 1.7;
-      max-width: 520px;
-    }
-
-    /* Override container for inner content */
-    .main-content .stat-grid,
-    .main-content .finding-grid,
-    .main-content .projects-grid { max-width: 100%; }
-
-    /* Geo explorer overrides */
+    .chapter-num { font-family: "DM Mono",monospace; font-size: 10px; letter-spacing: .1em; color: #9c9a94; text-transform: uppercase; margin-bottom: 6px; }
+    .chapter-title { font-size: 20px; font-weight: 500; letter-spacing: -.01em; margin-bottom: 8px; }
+    .chapter-desc { font-size: 13px; color: #5c5a54; font-weight: 300; line-height: 1.7; max-width: 520px; margin-bottom: 2rem; }
+    .chart-wrap { background: #fff; border: 0.5px solid #e8e6e0; border-radius: 10px; padding: 1.5rem; margin-bottom: 2rem; }
+    .chart-title { font-family: "DM Sans",sans-serif; font-size: 15px; font-weight: 500; margin-bottom: 4px; }
+    .chart-sub { font-family: "DM Sans",sans-serif; font-size: 13px; color: #5c5a54; font-weight: 300; margin-bottom: 1.25rem; }
+    .annotation-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 1rem; }
+    .ann { font-family: "DM Mono",monospace; font-size: 10px; padding: 3px 9px; border-radius: 2px; }
+    .ann-covid { background: #fff0f0; color: #a32d2d; }
+    .ann-recovery { background: #e6f3e6; color: #1a5c1a; }
+    .ann-new { background: #faeeda; color: #7a4f00; }
+    .stat-row { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 1px; border: 0.5px solid #e8e6e0; border-radius: 8px; overflow: hidden; margin-bottom: 1.5rem; }
+    .stat { background: #fff; padding: .9rem 1rem; }
+    .stat-label { font-family: "DM Mono",monospace; font-size: 10px; color: #9c9a94; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 4px; }
+    .stat-val { font-size: 22px; font-weight: 500; letter-spacing: -.02em; }
+    .stat-desc { font-size: 11px; color: #5c5a54; font-weight: 300; margin-top: 2px; }
+    .red { color: #a32d2d; } .green { color: #1a5c1a; } .amber { color: #7a4f00; }
     .explorer-wrap { background: #fff; border: 0.5px solid #e8e6e0; border-radius: 10px; padding: 1.5rem; margin-bottom: 2rem; }
     .controls { display: flex; gap: 16px; flex-wrap: wrap; align-items: flex-end; margin-bottom: 1.5rem; }
     .control-group { display: flex; flex-direction: column; gap: 4px; }
-    .control-label { font-family: 'DM Mono', monospace; font-size: 10px; color: #9c9a94; letter-spacing: 0.08em; text-transform: uppercase; }
-    select { font-family: 'DM Mono', monospace; font-size: 12px; padding: 7px 10px; border: 0.5px solid #c8c5bc; border-radius: 4px; background: #fff; color: #1a1916; cursor: pointer; min-width: 200px; }
+    .control-label { font-family: "DM Mono",monospace; font-size: 10px; color: #9c9a94; letter-spacing: .08em; text-transform: uppercase; }
+    select { font-family: "DM Mono",monospace; font-size: 12px; padding: 7px 10px; border: 0.5px solid #c8c5bc; border-radius: 4px; background: #fff; color: #1a1916; cursor: pointer; min-width: 200px; }
     .toggle-wrap { display: flex; border: 0.5px solid #c8c5bc; border-radius: 4px; overflow: hidden; }
-    .toggle-btn { font-family: 'DM Mono', monospace; font-size: 11px; padding: 7px 14px; background: #fff; color: #5c5a54; border: none; cursor: pointer; }
+    .toggle-btn { font-family: "DM Mono",monospace; font-size: 11px; padding: 7px 14px; background: #fff; color: #5c5a54; border: none; cursor: pointer; }
     .toggle-btn.active { background: #1a1916; color: #fff; }
-    .summary-stats { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 1px; border: 0.5px solid #e8e6e0; border-radius: 8px; overflow: hidden; margin-bottom: 1.25rem; }
+    .summary-stats { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 1px; border: 0.5px solid #e8e6e0; border-radius: 8px; overflow: hidden; margin-bottom: 1.25rem; }
     .sum-stat { background: #fafaf8; padding: .8rem 1rem; }
-    .sum-label { font-family: 'DM Mono', monospace; font-size: 10px; color: #9c9a94; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 4px; }
+    .sum-label { font-family: "DM Mono",monospace; font-size: 10px; color: #9c9a94; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 4px; }
     .sum-val { font-size: 18px; font-weight: 500; letter-spacing: -.02em; }
     .sum-sub { font-size: 11px; color: #5c5a54; font-weight: 300; margin-top: 2px; }
     .map-wrap { position: relative; width: 100%; height: 240px; margin-bottom: 1rem; background: #f5f3ef; border-radius: 6px; overflow: hidden; }
     .map-wrap svg { width: 100%; height: 100%; }
     .c { fill: #e8e4dc; stroke: #fff; stroke-width: .4px; transition: fill .25s; }
     .c.sel { fill: #1a1916; } .c.hi3 { fill: #185FA5; } .c.hi2 { fill: #378ADD; } .c.hi1 { fill: #B5D4F4; }
-    .tip { position: absolute; background: #1a1916; color: #fff; font-family: 'DM Mono', monospace; font-size: 11px; padding: 5px 9px; border-radius: 3px; pointer-events: none; display: none; white-space: nowrap; z-index: 10; }
-    .chart-lbl { font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500; margin-bottom: 2px; }
-    .chart-sub { font-family: 'DM Mono', monospace; font-size: 11px; color: #9c9a94; margin-bottom: .75rem; }
-
-    /* Covid / chart wraps */
-    .chart-wrap { background: #fff; border: 0.5px solid #e8e6e0; border-radius: 10px; padding: 1.5rem; margin-bottom: 2rem; }
-    .chart-title { font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 500; margin-bottom: 4px; }
-    .chart-subtitle { font-family: 'DM Sans', sans-serif; font-size: 13px; color: #5c5a54; font-weight: 300; margin-bottom: 1.25rem; }
-    .annotation-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 1rem; }
-    .ann { font-family: 'DM Mono', monospace; font-size: 10px; padding: 3px 9px; border-radius: 2px; }
-    .ann-covid { background: #fff0f0; color: #a32d2d; }
-    .ann-recovery { background: #e6f3e6; color: #1a5c1a; }
-    .ann-new { background: #faeeda; color: #7a4f00; }
-    .stat-row { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 1px; border: 0.5px solid #e8e6e0; border-radius: 8px; overflow: hidden; margin-bottom: 1.5rem; }
-    .stat { background: #fff; padding: .9rem 1rem; }
-    .stat-label { font-family: 'DM Mono', monospace; font-size: 10px; color: #9c9a94; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 4px; }
-    .stat-val { font-size: 22px; font-weight: 500; letter-spacing: -.02em; }
-    .stat-desc { font-size: 11px; color: #5c5a54; font-weight: 300; margin-top: 2px; }
-    .red { color: #a32d2d; } .green { color: #1a5c1a; } .amber { color: #7a4f00; }
-
-    /* Recommendations */
+    .tip { position: absolute; background: #1a1916; color: #fff; font-family: "DM Mono",monospace; font-size: 11px; padding: 5px 9px; border-radius: 3px; pointer-events: none; display: none; white-space: nowrap; z-index: 10; }
+    .chart-lbl { font-family: "DM Sans",sans-serif; font-size: 14px; font-weight: 500; margin-bottom: 2px; }
+    .chart-sublbl { font-family: "DM Mono",monospace; font-size: 11px; color: #9c9a94; margin-bottom: .75rem; }
     .rec-card { background: #fff; border: 0.5px solid #e8e6e0; border-radius: 12px; padding: 1.5rem; margin-bottom: 1rem; }
-    .rec-number { font-family: 'DM Mono', monospace; font-size: 11px; color: #9c9a94; letter-spacing: 0.08em; margin-bottom: 0.5rem; }
-    .rec-title { font-size: 16px; font-weight: 500; margin-bottom: 0.5rem; }
+    .rec-number { font-family: "DM Mono",monospace; font-size: 11px; color: #9c9a94; letter-spacing: .08em; margin-bottom: .5rem; }
+    .rec-title { font-size: 16px; font-weight: 500; margin-bottom: .5rem; }
     .rec-body { font-size: 14px; color: #5c5a54; font-weight: 300; line-height: 1.8; margin-bottom: 1rem; }
     .rec-evidence { display: flex; align-items: flex-start; gap: 10px; background: #f0ede8; border-radius: 8px; padding: .75rem 1rem; margin-bottom: .75rem; }
-    .rec-evidence-label { font-family: 'DM Mono', monospace; font-size: 10px; color: #9c9a94; text-transform: uppercase; letter-spacing: .08em; white-space: nowrap; padding-top: 1px; min-width: 60px; }
-    .rec-evidence-text { font-family: 'DM Mono', monospace; font-size: 12px; color: #5c5a54; line-height: 1.6; }
+    .rec-evidence-label { font-family: "DM Mono",monospace; font-size: 10px; color: #9c9a94; text-transform: uppercase; letter-spacing: .08em; white-space: nowrap; padding-top: 1px; min-width: 60px; }
+    .rec-evidence-text { font-family: "DM Mono",monospace; font-size: 12px; color: #5c5a54; line-height: 1.6; }
     .rec-tags { display: flex; gap: 6px; flex-wrap: wrap; }
-    .rec-tag { font-family: 'DM Mono', monospace; font-size: 10px; padding: 3px 8px; border-radius: 2px; background: #f0ede8; color: #5c5a54; }
+    .rec-tag { font-family: "DM Mono",monospace; font-size: 10px; padding: 3px 8px; border-radius: 2px; background: #f0ede8; color: #5c5a54; }
     .rec-tag.product { background: #f0eefe; color: #3d2a9e; }
     .rec-tag.marketing { background: #e8f0fb; color: #1a4580; }
     .rec-tag.growth { background: #e6f3e6; color: #1a5c1a; }
     .rec-tag.retention { background: #faf0d8; color: #7a4f00; }
-
-    @media (max-width: 720px) {
-      .page-wrap { grid-template-columns: 1fr; }
-      .sidebar { display: none; }
-      .main-content { padding-left: 0; }
-    }
+    @media (max-width: 720px) { .page-wrap { grid-template-columns: 1fr; } .sidebar { display: none; } .main-content { padding-left: 0; } }
   </style>
 </head>
 <body>
-
 <nav>
   <div class="nav-inner">
-    <a href="/" class="nav-logo mono">tamás imre</a>
+    <a href="/" class="nav-logo mono">tam&#225;s imre</a>
     <ul class="nav-links">
       <li><a href="/#projects">projects</a></li>
       <li><a href="/#experience">experience</a></li>
@@ -216,65 +91,43 @@
 </nav>
 
 <div class="page-wrap">
-
-  <!-- Sidebar -->
   <aside class="sidebar">
     <div class="sidebar-title">Analysis</div>
     <ul class="sidebar-nav">
-      <li><a href="#overview" id="nav-overview">
-        <span class="nav-num">00</span>Overview
-      </a></li>
-      <li><a href="#churn" id="nav-churn">
-        <span class="nav-num">01</span>Who are our customers?
-      </a></li>
-      <li><a href="#activity" id="nav-activity">
-        <span class="nav-num">02</span>How engaged are they?
-      </a></li>
-      <li><a href="#retention" id="nav-retention">
-        <span class="nav-num">03</span>What makes them stay?
-      </a></li>
-      <li><a href="#geography" id="nav-geography">
-        <span class="nav-num">04</span>Where do they go?
-      </a></li>
-      <li><a href="#covid" id="nav-covid">
-        <span class="nav-num">05</span>Covid impact
-      </a></li>
-      <li><a href="#recommendations" id="nav-recommendations">
-        <span class="nav-num">06</span>Recommendations
-      </a></li>
+      <li><a href="#overview"><span class="nav-num">00</span>Overview</a></li>
+      <li><a href="#churn"><span class="nav-num">01</span>Who are our customers?</a></li>
+      <li><a href="#activity"><span class="nav-num">02</span>How engaged are they?</a></li>
+      <li><a href="#retention"><span class="nav-num">03</span>What makes them stay?</a></li>
+      <li><a href="#geography"><span class="nav-num">04</span>Where do they go?</a></li>
+      <li><a href="#covid"><span class="nav-num">05</span>Covid impact</a></li>
+      <li><a href="#recommendations"><span class="nav-num">06</span>Recommendations</a></li>
     </ul>
   </aside>
 
-  <!-- Main content -->
   <main class="main-content">
-
-    <!-- 00 Overview -->
     <div id="overview" class="project-header">
-      <p style="font-family:'DM Mono',monospace;font-size:11px;color:var(--text-tertiary);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:1rem;">Le Wagon Bootcamp · 2025 · BigQuery · SQL · D3.js</p>
+      <p style="font-family:'DM Mono',monospace;font-size:11px;color:#9c9a94;letter-spacing:.08em;text-transform:uppercase;margin-bottom:1rem;">Le Wagon Bootcamp &middot; 2025 &middot; BigQuery &middot; SQL &middot; D3.js</p>
       <h1><strong>HomeExchange</strong><br>Customer Behaviour &amp; Retention Analysis</h1>
-      <p>HomeExchange is a French home-swap travel platform where members pay €149/year to access peer-to-peer house exchanges. This analysis covers 70,726 subscribers and 11.9 million exchange records from 2019–2022 — exploring who stays, who leaves, where they go, and what the business should do about it.</p>
+      <p>HomeExchange is a French home-swap travel platform where members pay &euro;149/year to access peer-to-peer house exchanges. This analysis covers 70,726 subscribers and 11.9 million exchange records from 2019&ndash;2022 &mdash; exploring who stays, who leaves, where they go, and what the business should do about it.</p>
       <div class="tag-row">
-        <span class="tag">SQL · BigQuery</span>
+        <span class="tag">SQL &middot; BigQuery</span>
         <span class="tag">Churn Modelling</span>
         <span class="tag">Customer Segmentation</span>
         <span class="tag">Geographic Analysis</span>
         <span class="tag">D3.js</span>
       </div>
       <div class="stat-grid" style="margin-top:1.5rem;">
-        <div class="stat-card"><div class="stat-label">Subscribers</div><div class="stat-value">70,726</div><div class="stat-sub">2019–2021</div></div>
-        <div class="stat-card"><div class="stat-label">Exchange records</div><div class="stat-value">11.9M</div><div class="stat-sub">2019–2022</div></div>
+        <div class="stat-card"><div class="stat-label">Subscribers</div><div class="stat-value">70,726</div><div class="stat-sub">2019&ndash;2021</div></div>
+        <div class="stat-card"><div class="stat-label">Exchange records</div><div class="stat-value">11.9M</div><div class="stat-sub">2019&ndash;2022</div></div>
         <div class="stat-card"><div class="stat-label">Countries</div><div class="stat-value">70</div><div class="stat-sub">origin &amp; destination</div></div>
         <div class="stat-card"><div class="stat-label">Overall churn</div><div class="stat-value">44.7%</div><div class="stat-sub">baseline rate</div></div>
       </div>
     </div>
 
-    <!-- 01 Who are our customers -->
     <div id="churn" class="chapter">
-      <div class="chapter-header">
-        <div class="chapter-num">01 — Customer segments</div>
-        <div class="chapter-title">Who are our customers — and do they stay?</div>
-        <div class="chapter-desc">Three segments with very different retention profiles. The year 1 → 2 inflection is the sharpest in the lifecycle. Activity is the strongest predictor of renewal.</div>
-      </div>
+      <div class="chapter-num">01 — Customer segments</div>
+      <div class="chapter-title">Who are our customers — and do they stay?</div>
+      <div class="chapter-desc">Three segments with very different retention profiles. Year 1 → 2 is the sharpest inflection. Activity is the strongest predictor of renewal.</div>
       <!-- Key stats -->
   <div class="stat-grid fade-up">
     <div class="stat-card">
@@ -463,13 +316,10 @@
   </section>
     </div>
 
-    <!-- 02 How engaged -->
     <div id="activity" class="chapter">
-      <div class="chapter-header">
-        <div class="chapter-num">02 — Engagement</div>
-        <div class="chapter-title">How engaged are our members?</div>
-        <div class="chapter-desc">Second Year customers are the most active. Only ~5% of requests become completed exchanges. Multi-home users show perfect symmetry between guest and host activity.</div>
-      </div>
+      <div class="chapter-num">02 — Engagement</div>
+      <div class="chapter-title">How engaged are our members?</div>
+      <div class="chapter-desc">Second Year customers are the most active. Only ~5% of requests become completed exchanges. Multi-home users show perfect symmetry between guest and host activity.</div>
       <!-- Key stats -->
   <div class="stat-grid fade-up">
     <div class="stat-card">
@@ -682,13 +532,10 @@
   </section>
     </div>
 
-    <!-- 03 What makes them stay -->
     <div id="retention" class="chapter">
-      <div class="chapter-header">
-        <div class="chapter-num">03 — Retention levers</div>
-        <div class="chapter-title">What makes members stay?</div>
-        <div class="chapter-desc">Promotions reduce churn from 46.8% to just 7%. Referral alone cuts it to 34.2%. Combined they produce 4.9% churn — the lowest in the dataset.</div>
-      </div>
+      <div class="chapter-num">03 — Retention levers</div>
+      <div class="chapter-title">What makes members stay?</div>
+      <div class="chapter-desc">Promotions reduce churn from 46.8% to just 7%. Referral alone cuts it to 34.2%. Combined they produce 4.9% churn — the lowest in the dataset.</div>
       <!-- Key stats -->
   <div class="stat-grid fade-up">
     <div class="stat-card">
@@ -817,13 +664,10 @@
   </section>
     </div>
 
-    <!-- 04 Geography -->
     <div id="geography" class="chapter">
-      <div class="chapter-header">
-        <div class="chapter-num">04 — Geographic flows</div>
-        <div class="chapter-title">Where do members travel?</div>
-        <div class="chapter-desc">France dominates as both origin and destination. Every country's top exchange pair is domestic. Explore 70 countries and 568 origin-destination pairs interactively.</div>
-      </div>
+      <div class="chapter-num">04 — Geographic flows</div>
+      <div class="chapter-title">Where do members travel?</div>
+      <div class="chapter-desc">France dominates as both origin and destination. Every country's top exchange pair is domestic. Explore 70 countries and 568 origin-destination pairs interactively.</div>
       <section class="section fade-up">
     <div class="section-label">Interactive explorer</div>
     <div class="explorer-wrap">
@@ -870,13 +714,10 @@
   </section>
     </div>
 
-    <!-- 05 Covid -->
     <div id="covid" class="chapter">
-      <div class="chapter-header">
-        <div class="chapter-num">05 — Covid impact</div>
-        <div class="chapter-title">How did Covid reshape travel behaviour?</div>
-        <div class="chapter-desc">Acquisition peaked at 17,153 in 2019 then collapsed. Domestic exchanges surged from 41% to 83.5%. By 2022 a new normal emerged — permanently more domestic than before.</div>
-      </div>
+      <div class="chapter-num">05 — Covid impact</div>
+      <div class="chapter-title">How did Covid reshape travel behaviour?</div>
+      <div class="chapter-desc">Acquisition peaked at 17,153 in 2019 then collapsed. Domestic exchanges surged from 41% to 83.5%. By 2022 a new normal emerged — permanently more domestic than before.</div>
       <!-- Key stats -->
   <div class="stat-row fade-up">
     <div class="stat">
@@ -1011,13 +852,10 @@
   </section>
     </div>
 
-    <!-- 06 Recommendations -->
     <div id="recommendations" class="chapter">
-      <div class="chapter-header">
-        <div class="chapter-num">06 — Recommendations</div>
-        <div class="chapter-title">From data to action</div>
-        <div class="chapter-desc">Six concrete recommendations tied directly to the findings — ordered by estimated retention impact.</div>
-      </div>
+      <div class="chapter-num">06 — Recommendations</div>
+      <div class="chapter-title">From data to action</div>
+      <div class="chapter-desc">Six concrete recommendations tied directly to the findings — ordered by estimated retention impact.</div>
       <section class="section fade-up">
     <div class="section-label">Recommendations</div>
 
@@ -1244,13 +1082,7 @@
     <span class="footer-copy mono">Berlin, Germany</span>
   </div>
 </footer>
-
-
 <script>
-// Expose geo functions globally before DOM loads
-var mode='d', selC='FRA', barChart=null, mapG=null, mapReady=false;
-function setMode(m){mode=m;var btnD=document.getElementById('btnD');var btnO=document.getElementById('btnO');if(btnD)btnD.classList.toggle('active',m==='d');if(btnO)btnO.classList.toggle('active',m==='o');if(typeof render==='function')render();}
-document.addEventListener("DOMContentLoaded", function() {
 
 const ctx = document.getElementById('churnChart').getContext('2d');
 new Chart(ctx, {
@@ -1371,6 +1203,8 @@ document.querySelectorAll('.code-block-toggle').forEach(btn => {
   });
 });
 
+</script>
+<script>
 
 const segments = ['New Customer', 'Second Year Customer', 'High Value Customer'];
 const colors = { border: ['#E24B4A','#1D9E75','#185FA5'], bg: ['#f09595','#9FE1CB','#85B7EB'] };
@@ -1537,8 +1371,10 @@ document.querySelectorAll('.code-block-toggle').forEach(btn => {
   });
 });
 
+</script>
+<script>
 
-const labels = ['No referral\nNo promotion', 'No referral\nWith promotion', 'Referral\nNo promotion', 'Referral +\nPromotion'];
+const promoLabels = ['No referral\nNo promotion', 'No referral\nWith promotion', 'Referral\nNo promotion', 'Referral +\nPromotion'];
 const churnData = [46.8, 7.0, 34.2, 4.9];
 const bgColors = ['#f09595', '#9FE1CB', '#fac775', '#9FE1CB'];
 const borderColors = ['#E24B4A', '#1D9E75', '#BA7517', '#1D9E75'];
@@ -1586,6 +1422,8 @@ document.querySelectorAll('.code-block-toggle').forEach(btn => {
   });
 });
 
+</script>
+<script>
 
 const years = ['2005','2006','2007','2008','2009','2010','2011','2012','2013','2014','2015','2016','2017','2018','2019','2020','2021'];
 
@@ -1705,6 +1543,12 @@ new Chart(document.getElementById('nightsChart').getContext('2d'), {
   }
 });
 
+</script>
+<script>
+var mode="d",selC="FRA",barChart=null,mapG=null,mapReady=false;
+function setMode(m){mode=m;var bd=document.getElementById("btnD"),bo=document.getElementById("btnO");if(bd)bd.classList.toggle("active",m==="d");if(bo)bo.classList.toggle("active",m==="o");if(typeof render==="function")render();}
+</script>
+<script>
 
 const RAW=[{"oc":"FRA","on":"France","dc":"FRA","dn":"France","n":66757},{"oc":"ESP","on":"Spain","dc":"ESP","dn":"Spain","n":24980},{"oc":"USA","on":"United States","dc":"USA","dn":"United States","n":21977},{"oc":"FRA","on":"France","dc":"ESP","dn":"Spain","n":6995},{"oc":"ESP","on":"Spain","dc":"FRA","dn":"France","n":6003},{"oc":"CAN","on":"Canada","dc":"CAN","dn":"Canada","n":5342},{"oc":"ITA","on":"Italy","dc":"ITA","dn":"Italy","n":4889},{"oc":"FRA","on":"France","dc":"ITA","dn":"Italy","n":3067},{"oc":"FRA","on":"France","dc":"USA","dn":"United States","n":2151},{"oc":"NLD","on":"Netherlands","dc":"NLD","dn":"Netherlands","n":2052},{"oc":"AUS","on":"Australia","dc":"AUS","dn":"Australia","n":2048},{"oc":"ITA","on":"Italy","dc":"FRA","dn":"France","n":1874},{"oc":"NLD","on":"Netherlands","dc":"FRA","dn":"France","n":1736},{"oc":"DEU","on":"Germany","dc":"DEU","dn":"Germany","n":1709},{"oc":"FRA","on":"France","dc":"CAN","dn":"Canada","n":1697},{"oc":"USA","on":"United States","dc":"FRA","dn":"France","n":1685},{"oc":"CAN","on":"Canada","dc":"USA","dn":"United States","n":1587},{"oc":"BEL","on":"Belgium","dc":"FRA","dn":"France","n":1559},{"oc":"ESP","on":"Spain","dc":"ITA","dn":"Italy","n":1499},{"oc":"DEU","on":"Germany","dc":"FRA","dn":"France","n":1321},{"oc":"FRA","on":"France","dc":"NLD","dn":"Netherlands","n":1319},{"oc":"GBR","on":"United Kingdom","dc":"GBR","dn":"United Kingdom","n":1295},{"oc":"FRA","on":"France","dc":"BEL","dn":"Belgium","n":1218},{"oc":"CAN","on":"Canada","dc":"FRA","dn":"France","n":1189},{"oc":"ITA","on":"Italy","dc":"ESP","dn":"Spain","n":1188},{"oc":"ESP","on":"Spain","dc":"USA","dn":"United States","n":1104},{"oc":"FRA","on":"France","dc":"DEU","dn":"Germany","n":1096},{"oc":"USA","on":"United States","dc":"ESP","dn":"Spain","n":1032},{"oc":"BEL","on":"Belgium","dc":"BEL","dn":"Belgium","n":991},{"oc":"USA","on":"United States","dc":"CAN","dn":"Canada","n":979},{"oc":"USA","on":"United States","dc":"MEX","dn":"Mexico","n":951},{"oc":"ESP","on":"Spain","dc":"DEU","dn":"Germany","n":915},{"oc":"FRA","on":"France","dc":"CHE","dn":"Switzerland","n":865},{"oc":"NLD","on":"Netherlands","dc":"ESP","dn":"Spain","n":865},{"oc":"CHE","on":"Switzerland","dc":"FRA","dn":"France","n":808},{"oc":"ESP","on":"Spain","dc":"PRT","dn":"Portugal","n":789},{"oc":"FRA","on":"France","dc":"GBR","dn":"United Kingdom","n":782},{"oc":"GBR","on":"United Kingdom","dc":"FRA","dn":"France","n":754},{"oc":"DEU","on":"Germany","dc":"ESP","dn":"Spain","n":730},{"oc":"IRL","on":"Ireland","dc":"IRL","dn":"Ireland","n":711},{"oc":"ESP","on":"Spain","dc":"NLD","dn":"Netherlands","n":698},{"oc":"MEX","on":"Mexico","dc":"USA","dn":"United States","n":685},{"oc":"FRA","on":"France","dc":"GLP","dn":"Guadeloupe","n":667},{"oc":"ESP","on":"Spain","dc":"GBR","dn":"United Kingdom","n":661},{"oc":"GLP","on":"Guadeloupe","dc":"FRA","dn":"France","n":630},{"oc":"USA","on":"United States","dc":"ITA","dn":"Italy","n":599},{"oc":"FRA","on":"France","dc":"REU","dn":"Reunion","n":593},{"oc":"NLD","on":"Netherlands","dc":"DEU","dn":"Germany","n":575},{"oc":"FRA","on":"France","dc":"PRT","dn":"Portugal","n":572},{"oc":"GBR","on":"United Kingdom","dc":"ESP","dn":"Spain","n":554},{"oc":"MEX","on":"Mexico","dc":"MEX","dn":"Mexico","n":542},{"oc":"REU","on":"Reunion","dc":"FRA","dn":"France","n":537},{"oc":"NLD","on":"Netherlands","dc":"BEL","dn":"Belgium","n":526},{"oc":"CHE","on":"Switzerland","dc":"CHE","dn":"Switzerland","n":523},{"oc":"DEU","on":"Germany","dc":"ITA","dn":"Italy","n":523},{"oc":"NZL","on":"New Zealand","dc":"NZL","dn":"New Zealand","n":506},{"oc":"PRT","on":"Portugal","dc":"ESP","dn":"Spain","n":501},{"oc":"ITA","on":"Italy","dc":"USA","dn":"United States","n":493},{"oc":"DNK","on":"Denmark","dc":"DNK","dn":"Denmark","n":491},{"oc":"DNK","on":"Denmark","dc":"FRA","dn":"France","n":460},{"oc":"ARG","on":"Argentina","dc":"ARG","dn":"Argentina","n":442},{"oc":"DEU","on":"Germany","dc":"NLD","dn":"Netherlands","n":422},{"oc":"GBR","on":"United Kingdom","dc":"USA","dn":"United States","n":414},{"oc":"CAN","on":"Canada","dc":"ESP","dn":"Spain","n":413},{"oc":"ESP","on":"Spain","dc":"BEL","dn":"Belgium","n":403},{"oc":"USA","on":"United States","dc":"GBR","dn":"United Kingdom","n":399},{"oc":"BRA","on":"Brazil","dc":"BRA","dn":"Brazil","n":397},{"oc":"FRA","on":"France","dc":"DNK","dn":"Denmark","n":396},{"oc":"PRT","on":"Portugal","dc":"FRA","dn":"France","n":381},{"oc":"BEL","on":"Belgium","dc":"NLD","dn":"Netherlands","n":380},{"oc":"NLD","on":"Netherlands","dc":"ITA","dn":"Italy","n":377},{"oc":"ITA","on":"Italy","dc":"DEU","dn":"Germany","n":373},{"oc":"FRA","on":"France","dc":"IRL","dn":"Ireland","n":368},{"oc":"BEL","on":"Belgium","dc":"ESP","dn":"Spain","n":366},{"oc":"CRI","on":"Costa Rica","dc":"USA","dn":"United States","n":364},{"oc":"IRL","on":"Ireland","dc":"FRA","dn":"France","n":344},{"oc":"IRL","on":"Ireland","dc":"ESP","dn":"Spain","n":337},{"oc":"ESP","on":"Spain","dc":"IRL","dn":"Ireland","n":333},{"oc":"MAR","on":"Morocco","dc":"FRA","dn":"France","n":328},{"oc":"MTQ","on":"Martinique","dc":"FRA","dn":"France","n":324},{"oc":"ITA","on":"Italy","dc":"NLD","dn":"Netherlands","n":319},{"oc":"DNK","on":"Denmark","dc":"DEU","dn":"Germany","n":315},{"oc":"PRT","on":"Portugal","dc":"PRT","dn":"Portugal","n":309},{"oc":"FRA","on":"France","dc":"MAR","dn":"Morocco","n":306},{"oc":"NLD","on":"Netherlands","dc":"USA","dn":"United States","n":302},{"oc":"DEU","on":"Germany","dc":"USA","dn":"United States","n":294},{"oc":"ESP","on":"Spain","dc":"CAN","dn":"Canada","n":294},{"oc":"FRA","on":"France","dc":"MEX","dn":"Mexico","n":285},{"oc":"USA","on":"United States","dc":"NLD","dn":"Netherlands","n":285},{"oc":"FRA","on":"France","dc":"MTQ","dn":"Martinique","n":277},{"oc":"FRA","on":"France","dc":"SWE","dn":"Sweden","n":276},{"oc":"DEU","on":"Germany","dc":"DNK","dn":"Denmark","n":276},{"oc":"FRA","on":"France","dc":"GRC","dn":"Greece","n":266},{"oc":"CAN","on":"Canada","dc":"MEX","dn":"Mexico","n":263},{"oc":"ESP","on":"Spain","dc":"CHE","dn":"Switzerland","n":263},{"oc":"FRA","on":"France","dc":"ISL","dn":"Iceland","n":262},{"oc":"ESP","on":"Spain","dc":"MEX","dn":"Mexico","n":259},{"oc":"ESP","on":"Spain","dc":"DNK","dn":"Denmark","n":256},{"oc":"USA","on":"United States","dc":"CRI","dn":"Costa Rica","n":255},{"oc":"AUS","on":"Australia","dc":"GBR","dn":"United Kingdom","n":250},{"oc":"FRA","on":"France","dc":"AUS","dn":"Australia","n":244},{"oc":"FRA","on":"France","dc":"NOR","dn":"Norway","n":241},{"oc":"DNK","on":"Denmark","dc":"ESP","dn":"Spain","n":240},{"oc":"USA","on":"United States","dc":"DEU","dn":"Germany","n":231},{"oc":"AUS","on":"Australia","dc":"FRA","dn":"France","n":222},{"oc":"ESP","on":"Spain","dc":"AUT","dn":"Austria","n":220},{"oc":"ITA","on":"Italy","dc":"GBR","dn":"United Kingdom","n":219},{"oc":"FRA","on":"France","dc":"AUT","dn":"Austria","n":217},{"oc":"ZAF","on":"South Africa","dc":"ZAF","dn":"South Africa","n":211},{"oc":"ESP","on":"Spain","dc":"HUN","dn":"Hungary","n":209},{"oc":"CAN","on":"Canada","dc":"ITA","dn":"Italy","n":207},{"oc":"GBR","on":"United Kingdom","dc":"ITA","dn":"Italy","n":205},{"oc":"GRC","on":"Greece","dc":"FRA","dn":"France","n":200},{"oc":"SWE","on":"Sweden","dc":"FRA","dn":"France","n":197},{"oc":"AUS","on":"Australia","dc":"USA","dn":"United States","n":197},{"oc":"SWE","on":"Sweden","dc":"SWE","dn":"Sweden","n":192},{"oc":"IRL","on":"Ireland","dc":"USA","dn":"United States","n":191},{"oc":"USA","on":"United States","dc":"PRT","dn":"Portugal","n":189},{"oc":"MEX","on":"Mexico","dc":"ESP","dn":"Spain","n":189},{"oc":"ITA","on":"Italy","dc":"CHE","dn":"Switzerland","n":189},{"oc":"HUN","on":"Hungary","dc":"HUN","dn":"Hungary","n":187},{"oc":"CHE","on":"Switzerland","dc":"ITA","dn":"Italy","n":184},{"oc":"ESP","on":"Spain","dc":"ISL","dn":"Iceland","n":183},{"oc":"USA","on":"United States","dc":"IRL","dn":"Ireland","n":183},{"oc":"ARG","on":"Argentina","dc":"ESP","dn":"Spain","n":182},{"oc":"SWE","on":"Sweden","dc":"ESP","dn":"Spain","n":180},{"oc":"BEL","on":"Belgium","dc":"ITA","dn":"Italy","n":178},{"oc":"DNK","on":"Denmark","dc":"USA","dn":"United States","n":177},{"oc":"NZL","on":"New Zealand","dc":"AUS","dn":"Australia","n":175},{"oc":"FRA","on":"France","dc":"HUN","dn":"Hungary","n":174},{"oc":"DEU","on":"Germany","dc":"CHE","dn":"Switzerland","n":173},{"oc":"MEX","on":"Mexico","dc":"FRA","dn":"France","n":172},{"oc":"CHE","on":"Switzerland","dc":"ESP","dn":"Spain","n":171},{"oc":"FRA","on":"France","dc":"PYF","dn":"French Polynesia","n":171},{"oc":"GBR","on":"United Kingdom","dc":"AUS","dn":"Australia","n":170},{"oc":"FRA","on":"France","dc":"HRV","dn":"Croatia","n":169},{"oc":"BEL","on":"Belgium","dc":"DEU","dn":"Germany","n":167},{"oc":"NOR","on":"Norway","dc":"FRA","dn":"France","n":166},{"oc":"ESP","on":"Spain","dc":"ARG","dn":"Argentina","n":164},{"oc":"USA","on":"United States","dc":"AUS","dn":"Australia","n":163},{"oc":"GLP","on":"Guadeloupe","dc":"GLP","dn":"Guadeloupe","n":162},{"oc":"AUT","on":"Austria","dc":"FRA","dn":"France","n":162},{"oc":"CRI","on":"Costa Rica","dc":"CRI","dn":"Costa Rica","n":161},{"oc":"ESP","on":"Spain","dc":"CZE","dn":"Czechia","n":160},{"oc":"ISL","on":"Iceland","dc":"ESP","dn":"Spain","n":160},{"oc":"DEU","on":"Germany","dc":"AUT","dn":"Austria","n":157},{"oc":"AUS","on":"Australia","dc":"NZL","dn":"New Zealand","n":155},{"oc":"BRA","on":"Brazil","dc":"FRA","dn":"France","n":152},{"oc":"ESP","on":"Spain","dc":"AND","dn":"Andorra","n":152},{"oc":"MEX","on":"Mexico","dc":"CAN","dn":"Canada","n":151},{"oc":"HUN","on":"Hungary","dc":"ESP","dn":"Spain","n":151},{"oc":"BRA","on":"Brazil","dc":"USA","dn":"United States","n":150},{"oc":"NLD","on":"Netherlands","dc":"CHE","dn":"Switzerland","n":148},{"oc":"FRA","on":"France","dc":"CRI","dn":"Costa Rica","n":148},{"oc":"FRA","on":"France","dc":"CZE","dn":"Czechia","n":145},{"oc":"CAN","on":"Canada","dc":"GBR","dn":"United Kingdom","n":144},{"oc":"ESP","on":"Spain","dc":"NOR","dn":"Norway","n":144},{"oc":"CAN","on":"Canada","dc":"CRI","dn":"Costa Rica","n":142},{"oc":"CAN","on":"Canada","dc":"AUS","dn":"Australia","n":141},{"oc":"USA","on":"United States","dc":"NZL","dn":"New Zealand","n":140},{"oc":"BRA","on":"Brazil","dc":"ESP","dn":"Spain","n":139},{"oc":"ESP","on":"Spain","dc":"SWE","dn":"Sweden","n":138},{"oc":"CHE","on":"Switzerland","dc":"DEU","dn":"Germany","n":138},{"oc":"AUS","on":"Australia","dc":"CAN","dn":"Canada","n":138},{"oc":"ISL","on":"Iceland","dc":"FRA","dn":"France","n":137},{"oc":"AUT","on":"Austria","dc":"ITA","dn":"Italy","n":134},{"oc":"FRA","on":"France","dc":"NZL","dn":"New Zealand","n":132},{"oc":"CZE","on":"Czechia","dc":"FRA","dn":"France","n":130},{"oc":"USA","on":"United States","dc":"CHE","dn":"Switzerland","n":130},{"oc":"CAN","on":"Canada","dc":"PRT","dn":"Portugal","n":126},{"oc":"ITA","on":"Italy","dc":"PRT","dn":"Portugal","n":122},{"oc":"IDN","on":"Indonesia","dc":"FRA","dn":"France","n":122},{"oc":"NLD","on":"Netherlands","dc":"DNK","dn":"Denmark","n":122},{"oc":"PRT","on":"Portugal","dc":"ITA","dn":"Italy","n":120},{"oc":"PYF","on":"French Polynesia","dc":"FRA","dn":"France","n":119},{"oc":"AUT","on":"Austria","dc":"AUT","dn":"Austria","n":119},{"oc":"AUT","on":"Austria","dc":"ESP","dn":"Spain","n":118},{"oc":"ITA","on":"Italy","dc":"AUT","dn":"Austria","n":118},{"oc":"NLD","on":"Netherlands","dc":"GBR","dn":"United Kingdom","n":117},{"oc":"FRA","on":"France","dc":"BRA","dn":"Brazil","n":117},{"oc":"FRA","on":"France","dc":"ARG","dn":"Argentina","n":117},{"oc":"ESP","on":"Spain","dc":"MAR","dn":"Morocco","n":117},{"oc":"HRV","on":"Croatia","dc":"HRV","dn":"Croatia","n":116},{"oc":"ITA","on":"Italy","dc":"BEL","dn":"Belgium","n":114},{"oc":"GBR","on":"United Kingdom","dc":"NLD","dn":"Netherlands","n":114},{"oc":"REU","on":"Reunion","dc":"REU","dn":"Reunion","n":113},{"oc":"MAR","on":"Morocco","dc":"ESP","dn":"Spain","n":112},{"oc":"DNK","on":"Denmark","dc":"ITA","dn":"Italy","n":111},{"oc":"PRT","on":"Portugal","dc":"USA","dn":"United States","n":111},{"oc":"ARG","on":"Argentina","dc":"FRA","dn":"France","n":110},{"oc":"DEU","on":"Germany","dc":"BEL","dn":"Belgium","n":109},{"oc":"GBR","on":"United Kingdom","dc":"DEU","dn":"Germany","n":108},{"oc":"NOR","on":"Norway","dc":"ESP","dn":"Spain","n":106},{"oc":"USA","on":"United States","dc":"PRI","dn":"Puerto Rico","n":106},{"oc":"FRA","on":"France","dc":"THA","dn":"Thailand","n":106},{"oc":"ESP","on":"Spain","dc":"BRA","dn":"Brazil","n":106},{"oc":"CZE","on":"Czechia","dc":"ESP","dn":"Spain","n":102},{"oc":"ESP","on":"Spain","dc":"AUS","dn":"Australia","n":102},{"oc":"CZE","on":"Czechia","dc":"ITA","dn":"Italy","n":102},{"oc":"ARG","on":"Argentina","dc":"USA","dn":"United States","n":100},{"oc":"AUT","on":"Austria","dc":"DEU","dn":"Germany","n":100},{"oc":"FRA","on":"France","dc":"MUS","dn":"Mauritius","n":99},{"oc":"DEU","on":"Germany","dc":"PRT","dn":"Portugal","n":99},{"oc":"ESP","on":"Spain","dc":"GRC","dn":"Greece","n":99},{"oc":"NOR","on":"Norway","dc":"NOR","dn":"Norway","n":98},{"oc":"IRL","on":"Ireland","dc":"GBR","dn":"United Kingdom","n":98},{"oc":"USA","on":"United States","dc":"ISL","dn":"Iceland","n":98},{"oc":"FRA","on":"France","dc":"IDN","dn":"Indonesia","n":98},{"oc":"DNK","on":"Denmark","dc":"NOR","dn":"Norway","n":97},{"oc":"IDN","on":"Indonesia","dc":"IDN","dn":"Indonesia","n":95},{"oc":"USA","on":"United States","dc":"DNK","dn":"Denmark","n":95},{"oc":"GBR","on":"United Kingdom","dc":"NZL","dn":"New Zealand","n":95},{"oc":"HUN","on":"Hungary","dc":"FRA","dn":"France","n":94},{"oc":"BRA","on":"Brazil","dc":"ITA","dn":"Italy","n":94},{"oc":"ESP","on":"Spain","dc":"CRI","dn":"Costa Rica","n":93},{"oc":"DEU","on":"Germany","dc":"GBR","dn":"United Kingdom","n":93},{"oc":"GLP","on":"Guadeloupe","dc":"CAN","dn":"Canada","n":92},{"oc":"HRV","on":"Croatia","dc":"FRA","dn":"France","n":90},{"oc":"PYF","on":"French Polynesia","dc":"PYF","dn":"French Polynesia","n":89},{"oc":"CHE","on":"Switzerland","dc":"USA","dn":"United States","n":89},{"oc":"ESP","on":"Spain","dc":"POL","dn":"Poland","n":88},{"oc":"NZL","on":"New Zealand","dc":"USA","dn":"United States","n":88},{"oc":"USA","on":"United States","dc":"AUT","dn":"Austria","n":88},{"oc":"GBR","on":"United Kingdom","dc":"IRL","dn":"Ireland","n":85},{"oc":"NZL","on":"New Zealand","dc":"FRA","dn":"France","n":85},{"oc":"NLD","on":"Netherlands","dc":"AUT","dn":"Austria","n":85},{"oc":"BEL","on":"Belgium","dc":"USA","dn":"United States","n":84},{"oc":"DEU","on":"Germany","dc":"SWE","dn":"Sweden","n":84},{"oc":"DEU","on":"Germany","dc":"CAN","dn":"Canada","n":83},{"oc":"POL","on":"Poland","dc":"ESP","dn":"Spain","n":83},{"oc":"ESP","on":"Spain","dc":"HRV","dn":"Croatia","n":82},{"oc":"AUS","on":"Australia","dc":"ESP","dn":"Spain","n":82},{"oc":"ITA","on":"Italy","dc":"HRV","dn":"Croatia","n":82},{"oc":"CAN","on":"Canada","dc":"NLD","dn":"Netherlands","n":81},{"oc":"NLD","on":"Netherlands","dc":"PRT","dn":"Portugal","n":81},{"oc":"IRL","on":"Ireland","dc":"ITA","dn":"Italy","n":80},{"oc":"ITA","on":"Italy","dc":"IRL","dn":"Ireland","n":80},{"oc":"AUS","on":"Australia","dc":"ITA","dn":"Italy","n":80},{"oc":"GBR","on":"United Kingdom","dc":"CAN","dn":"Canada","n":80},{"oc":"FRA","on":"France","dc":"ZAF","dn":"South Africa","n":79},{"oc":"ITA","on":"Italy","dc":"DNK","dn":"Denmark","n":78},{"oc":"ITA","on":"Italy","dc":"CAN","dn":"Canada","n":78},{"oc":"HUN","on":"Hungary","dc":"USA","dn":"United States","n":77},{"oc":"ZAF","on":"South Africa","dc":"FRA","dn":"France","n":76},{"oc":"USA","on":"United States","dc":"BEL","dn":"Belgium","n":75},{"oc":"IDN","on":"Indonesia","dc":"AUS","dn":"Australia","n":75},{"oc":"DNK","on":"Denmark","dc":"SWE","dn":"Sweden","n":74},{"oc":"HRV","on":"Croatia","dc":"ESP","dn":"Spain","n":74},{"oc":"HRV","on":"Croatia","dc":"ITA","dn":"Italy","n":74},{"oc":"PRI","on":"Puerto Rico","dc":"USA","dn":"United States","n":74},{"oc":"THA","on":"Thailand","dc":"THA","dn":"Thailand","n":74},{"oc":"CHE","on":"Switzerland","dc":"NLD","dn":"Netherlands","n":73},{"oc":"SWE","on":"Sweden","dc":"USA","dn":"United States","n":72},{"oc":"ISL","on":"Iceland","dc":"USA","dn":"United States","n":71},{"oc":"ITA","on":"Italy","dc":"HUN","dn":"Hungary","n":70},{"oc":"ESP","on":"Spain","dc":"IDN","dn":"Indonesia","n":70},{"oc":"USA","on":"United States","dc":"HRV","dn":"Croatia","n":70},{"oc":"NOR","on":"Norway","dc":"DNK","dn":"Denmark","n":69},{"oc":"MUS","on":"Mauritius","dc":"FRA","dn":"France","n":68},{"oc":"HUN","on":"Hungary","dc":"ITA","dn":"Italy","n":68},{"oc":"COL","on":"Colombia","dc":"USA","dn":"United States","n":67},{"oc":"ISR","on":"Israel","dc":"FRA","dn":"France","n":67},{"oc":"CAN","on":"Canada","dc":"GLP","dn":"Guadeloupe","n":67},{"oc":"DNK","on":"Denmark","dc":"NLD","dn":"Netherlands","n":66},{"oc":"IDN","on":"Indonesia","dc":"USA","dn":"United States","n":66},{"oc":"BEL","on":"Belgium","dc":"CHE","dn":"Switzerland","n":64},{"oc":"FRA","on":"France","dc":"COL","dn":"Colombia","n":64},{"oc":"AUT","on":"Austria","dc":"USA","dn":"United States","n":64},{"oc":"FRA","on":"France","dc":"ISR","dn":"Israel","n":64},{"oc":"USA","on":"United States","dc":"ARG","dn":"Argentina","n":64},{"oc":"FRA","on":"France","dc":"MLT","dn":"Malta","n":63},{"oc":"ITA","on":"Italy","dc":"GRC","dn":"Greece","n":63},{"oc":"AND","on":"Andorra","dc":"ESP","dn":"Spain","n":62},{"oc":"PRT","on":"Portugal","dc":"NLD","dn":"Netherlands","n":62},{"oc":"NLD","on":"Netherlands","dc":"CAN","dn":"Canada","n":62},{"oc":"ARG","on":"Argentina","dc":"ITA","dn":"Italy","n":62},{"oc":"CZE","on":"Czechia","dc":"CZE","dn":"Czechia","n":61},{"oc":"ZAF","on":"South Africa","dc":"USA","dn":"United States","n":61},{"oc":"SWE","on":"Sweden","dc":"DNK","dn":"Denmark","n":61},{"oc":"ISR","on":"Israel","dc":"USA","dn":"United States","n":60},{"oc":"ARG","on":"Argentina","dc":"BRA","dn":"Brazil","n":60},{"oc":"NZL","on":"New Zealand","dc":"GBR","dn":"United Kingdom","n":60},{"oc":"DNK","on":"Denmark","dc":"CHE","dn":"Switzerland","n":60},{"oc":"ITA","on":"Italy","dc":"ISL","dn":"Iceland","n":59},{"oc":"FRA","on":"France","dc":"FIN","dn":"Finland","n":59},{"oc":"USA","on":"United States","dc":"CZE","dn":"Czechia","n":59},{"oc":"GBR","on":"United Kingdom","dc":"PRT","dn":"Portugal","n":58},{"oc":"SWE","on":"Sweden","dc":"DEU","dn":"Germany","n":58},{"oc":"NLD","on":"Netherlands","dc":"SWE","dn":"Sweden","n":58},{"oc":"ITA","on":"Italy","dc":"MEX","dn":"Mexico","n":58},{"oc":"PYF","on":"French Polynesia","dc":"USA","dn":"United States","n":57},{"oc":"GRC","on":"Greece","dc":"ESP","dn":"Spain","n":57},{"oc":"USA","on":"United States","dc":"IDN","dn":"Indonesia","n":56},{"oc":"FRA","on":"France","dc":"SVN","dn":"Slovenia","n":56},{"oc":"NLD","on":"Netherlands","dc":"ZAF","dn":"South Africa","n":56},{"oc":"DEU","on":"Germany","dc":"HRV","dn":"Croatia","n":55},{"oc":"USA","on":"United States","dc":"BRA","dn":"Brazil","n":55},{"oc":"CAN","on":"Canada","dc":"IRL","dn":"Ireland","n":55},{"oc":"PRT","on":"Portugal","dc":"GBR","dn":"United Kingdom","n":55},{"oc":"GRC","on":"Greece","dc":"ITA","dn":"Italy","n":54},{"oc":"GLP","on":"Guadeloupe","dc":"USA","dn":"United States","n":54},{"oc":"USA","on":"United States","dc":"HUN","dn":"Hungary","n":54},{"oc":"DEU","on":"Germany","dc":"AUS","dn":"Australia","n":54},{"oc":"POL","on":"Poland","dc":"ITA","dn":"Italy","n":54},{"oc":"MAR","on":"Morocco","dc":"MAR","dn":"Morocco","n":54},{"oc":"COL","on":"Colombia","dc":"ESP","dn":"Spain","n":54},{"oc":"BEL","on":"Belgium","dc":"DNK","dn":"Denmark","n":53},{"oc":"NOR","on":"Norway","dc":"ITA","dn":"Italy","n":53},{"oc":"ESP","on":"Spain","dc":"ZAF","dn":"South Africa","n":53},{"oc":"MAR","on":"Morocco","dc":"USA","dn":"United States","n":53},{"oc":"ESP","on":"Spain","dc":"COL","dn":"Colombia","n":52},{"oc":"COL","on":"Colombia","dc":"COL","dn":"Colombia","n":52},{"oc":"GBR","on":"United Kingdom","dc":"MEX","dn":"Mexico","n":52},{"oc":"CAN","on":"Canada","dc":"BEL","dn":"Belgium","n":52},{"oc":"IRL","on":"Ireland","dc":"NLD","dn":"Netherlands","n":52},{"oc":"GRC","on":"Greece","dc":"GRC","dn":"Greece","n":52},{"oc":"ESP","on":"Spain","dc":"TUR","dn":"Turkey","n":52},{"oc":"AND","on":"Andorra","dc":"FRA","dn":"France","n":52},{"oc":"AUT","on":"Austria","dc":"NLD","dn":"Netherlands","n":51},{"oc":"MTQ","on":"Martinique","dc":"CAN","dn":"Canada","n":51},{"oc":"USA","on":"United States","dc":"COL","dn":"Colombia","n":51},{"oc":"SWE","on":"Sweden","dc":"ITA","dn":"Italy","n":50},{"oc":"PRT","on":"Portugal","dc":"DEU","dn":"Germany","n":50},{"oc":"HRV","on":"Croatia","dc":"USA","dn":"United States","n":50},{"oc":"FRA","on":"France","dc":"AND","dn":"Andorra","n":50},{"oc":"FRA","on":"France","dc":"POL","dn":"Poland","n":50},{"oc":"IRL","on":"Ireland","dc":"DEU","dn":"Germany","n":50},{"oc":"CAN","on":"Canada","dc":"MTQ","dn":"Martinique","n":50}];
 
@@ -1712,7 +1556,7 @@ const N2I={"4":"AFG","8":"ALB","12":"DZA","24":"AGO","32":"ARG","36":"AUS","40":
 
 const CTRIES=[["FRA","France"],["ESP","Spain"],["USA","United States"],["ITA","Italy"],["CAN","Canada"],["NLD","Netherlands"],["DEU","Germany"],["GBR","United Kingdom"],["BEL","Belgium"],["AUS","Australia"],["DNK","Denmark"],["CHE","Switzerland"],["IRL","Ireland"],["MEX","Mexico"],["PRT","Portugal"],["BRA","Brazil"],["NZL","New Zealand"],["ARG","Argentina"],["GLP","Guadeloupe"],["AUT","Austria"],["SWE","Sweden"],["HUN","Hungary"],["REU","Reunion"],["CRI","Costa Rica"],["MAR","Morocco"],["NOR","Norway"],["ISL","Iceland"],["CZE","Czechia"],["IDN","Indonesia"],["HRV","Croatia"],["ZAF","South Africa"],["MTQ","Martinique"],["GRC","Greece"],["PYF","French Polynesia"],["POL","Poland"],["THA","Thailand"],["COL","Colombia"],["ISR","Israel"],["NCL","New Caledonia"],["AND","Andorra"],["SVN","Slovenia"],["TUR","Turkey"],["RUS","Russia Federation"],["FIN","Finland"],["PRI","Puerto Rico"],["MUS","Mauritius"],["ARE","United Arab Emirates"],["CHL","Chile"],["BGR","Bulgaria"],["PAN","Panama"],["SEN","Senegal"],["DOM","Dominican Republic"],["MLT","Malta"],["TUN","Tunisia"],["GUF","French Guiana"],["MYS","Malaysia"],["KHM","Cambodia"],["IND","India"],["BWA","Botswana"],["SGP","Singapore"],["GTM","Guatemala"],["VIR","Virgin Islands, U.S."],["ABW","Aruba"],["ECU","Ecuador"],["BHS","Bahamas"],["JPN","Japan"]];
 
-// mode, selC, barChart, mapG, mapReady already declared globally
+// declared globally
 
 // Dropdown
 const dd=document.getElementById('sel');
@@ -1784,38 +1628,28 @@ d3.json('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json').then(w
   render();
 });
 
-
-// Scrollspy
-const chapters = document.querySelectorAll('.chapter, .project-header');
-const navLinks = document.querySelectorAll('.sidebar-nav a');
-
-function getActiveSection() {
-  const scrollY = window.scrollY + 120;
-  let active = 'overview';
-  chapters.forEach(ch => {
-    if (ch.offsetTop <= scrollY) active = ch.id;
-  });
-  return active;
-}
-
+</script>
+<script>
+var chapters = document.querySelectorAll(".chapter, .project-header");
+var navLinks = document.querySelectorAll(".sidebar-nav a");
 function updateNav() {
-  const active = getActiveSection();
-  navLinks.forEach(a => {
-    const href = a.getAttribute('href').replace('#','');
-    a.classList.toggle('active', href === active);
+  var scrollY = window.scrollY + 120;
+  var active = "overview";
+  chapters.forEach(function(ch) { if (ch.offsetTop <= scrollY) active = ch.id; });
+  navLinks.forEach(function(a) {
+    var href = a.getAttribute("href").replace("#","");
+    a.classList.toggle("active", href === active);
   });
 }
-
-window.addEventListener('scroll', updateNav, { passive: true });
+window.addEventListener("scroll", updateNav, {passive:true});
 updateNav();
 
 // Collapsible code blocks
-document.querySelectorAll('.code-block-toggle').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const open = btn.parentElement.classList.contains('open');
-    btn.querySelector('.code-block-chevron').textContent = open ? '▾ show query' : '▴ hide query';
+document.querySelectorAll(".code-block-toggle").forEach(function(btn) {
+  btn.addEventListener("click", function() {
+    var open = btn.parentElement.classList.contains("open");
+    btn.querySelector(".code-block-chevron").textContent = open ? "\u25be show query" : "\u25b4 hide query";
   });
-});
 });
 </script>
 </body>
