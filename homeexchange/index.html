@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>HomeExchange Churn Analysis — Tamás Imre</title>
+  <title>HomeExchange — Customer Behaviour & Retention Analysis — Tamás Imre</title>
   <meta name="description" content="End-to-end churn analysis for a home-swap travel platform using SQL, BigQuery, and customer segmentation." />
   <link rel="stylesheet" href="../style.css" />
 </head>
@@ -27,7 +27,7 @@
   <!-- Project hero -->
   <section class="project-hero fade-up">
     <p class="project-hero-meta">Le Wagon Bootcamp · 2025 · In progress</p>
-    <h1><strong>HomeExchange</strong><br>Churn Analysis</h1>
+    <h1><strong>HomeExchange</strong><br>Customer Behaviour &amp; Retention Analysis</h1>
     <p class="project-hero-desc">
       HomeExchange is a home-swap travel platform where members pay an annual fee of €149 to access peer-to-peer house exchanges. The goal of this project is to understand why members do not renew their subscription and identify actionable levers to reduce churn.
     </p>
@@ -201,16 +201,95 @@
     <div class="section-label">Analysis</div>
     <div class="projects-grid">
 
-      <a href="covid-travel/" class="project-card featured">
+      <!-- 1. Who are our customers? -->
+      <a href="churn-segments/" class="project-card featured">
         <div class="project-top">
           <div>
-            <div class="project-title">Covid-19 impact on travel patterns</div>
+            <div class="project-title">Who are our customers — and do they stay?</div>
+            <div class="project-org mono">Churn by segment · activity · geography</div>
+          </div>
+          <span class="project-arrow">↗</span>
+        </div>
+        <p class="project-desc">
+          Three customer segments with very different retention profiles. New customers churn at 56.6%. The year 1 → 2 inflection is the sharpest in the lifecycle. Activity is the strongest predictor of renewal — high activity users churn at just 26.5%.
+        </p>
+        <div class="chip-row">
+          <span class="chip chip-sql">SQL</span>
+          <span class="chip chip-bq">BigQuery</span>
+          <span class="chip chip-default">Churn Modelling</span>
+          <span class="chip chip-default">Segmentation</span>
+        </div>
+      </a>
+
+      <!-- 2. How engaged are they? -->
+      <a href="activity-metrics/" class="project-card">
+        <div class="project-top">
+          <div>
+            <div class="project-title">How engaged are our members?</div>
+            <div class="project-org mono">Exchanges · nights · multi-home users</div>
+          </div>
+          <span class="project-arrow">↗</span>
+        </div>
+        <p class="project-desc">
+          Second Year customers are the most active. Only ~5% of requests become completed exchanges. Multi-home users exchange 2.4x more and show perfect symmetry between guest and host activity — 7.7 exchanges on each side.
+        </p>
+        <div class="chip-row">
+          <span class="chip chip-sql">SQL</span>
+          <span class="chip chip-default">Behavioural Analysis</span>
+          <span class="chip chip-default">Segmentation</span>
+        </div>
+      </a>
+
+      <!-- 3. What makes them stay? -->
+      <a href="referral-promotion/" class="project-card">
+        <div class="project-top">
+          <div>
+            <div class="project-title">What makes members stay?</div>
+            <div class="project-org mono">Strongest retention signal in the dataset</div>
+          </div>
+          <span class="project-arrow">↗</span>
+        </div>
+        <p class="project-desc">
+          Promotions reduce churn from 46.8% to just 7%. Referral alone cuts it to 34.2%. Combined, they produce 4.9% churn — the lowest in the entire dataset. These are the clearest, most actionable levers in the analysis.
+        </p>
+        <div class="chip-row">
+          <span class="chip chip-sql">SQL</span>
+          <span class="chip chip-default">Retention</span>
+          <span class="chip chip-default">Marketing</span>
+        </div>
+      </a>
+
+      <!-- 4. Where do they go? -->
+      <a href="geo-explorer/" class="project-card">
+        <div class="project-top">
+          <div>
+            <div class="project-title">Where do members travel?</div>
+            <div class="project-org mono">Interactive origin · destination map</div>
+          </div>
+          <span class="project-arrow">↗</span>
+        </div>
+        <p class="project-desc">
+          France dominates as both origin and destination — 117,298 exchanges as destination, more than double Spain. Every country's top pair is domestic. Interactive map across 70 countries and 568 origin-destination pairs.
+        </p>
+        <div class="chip-row">
+          <span class="chip chip-sql">SQL</span>
+          <span class="chip chip-bq">BigQuery</span>
+          <span class="chip chip-default">D3.js</span>
+          <span class="chip chip-default">Geographic Analysis</span>
+        </div>
+      </a>
+
+      <!-- 5. Covid impact -->
+      <a href="covid-travel/" class="project-card">
+        <div class="project-top">
+          <div>
+            <div class="project-title">How did Covid reshape travel behaviour?</div>
             <div class="project-org mono">Monthly breakdown · 2019–2022</div>
           </div>
           <span class="project-arrow">↗</span>
         </div>
         <p class="project-desc">
-          Domestic exchanges surged from 40% to 83.5% during peak Covid restrictions. Month-by-month analysis pinpoints the exact moment lockdowns hit and tracks the slow recovery toward pre-pandemic patterns.
+          Domestic exchanges surged from 41% to 83.5% in May 2020. Intercontinental collapsed to 3.2%. By 2022, domestic settled at ~48% — permanently above pre-Covid levels. Intercontinental users also stay longest: avg 7.8 nights vs 5.4 domestic.
         </p>
         <div class="chip-row">
           <span class="chip chip-sql">SQL</span>
@@ -220,76 +299,23 @@
         </div>
       </a>
 
-      <a href="churn-segments/" class="project-card">
+      <!-- 6. Recommendations -->
+      <a href="recommendations/" class="project-card" style="border-left: 3px solid #1D9E75;">
         <div class="project-top">
           <div>
-            <div class="project-title">Churn by customer segment</div>
-            <div class="project-org mono">New · Second Year · High Value</div>
+            <div class="project-title">Recommendations</div>
+            <div class="project-org mono">Actionable steps from the full analysis</div>
           </div>
           <span class="project-arrow">↗</span>
         </div>
         <p class="project-desc">
-          New customers churn at 56.6% — the highest of any segment. Churn drops 18 points at year two, the sharpest inflection in the customer lifecycle. Analysis of what drives retention beyond year one.
+          Six concrete recommendations tied directly to the data — from onboarding campaigns to referral scaling, geographic expansion strategy, and multi-home conversion triggers.
         </p>
         <div class="chip-row">
-          <span class="chip chip-sql">SQL</span>
-          <span class="chip chip-default">Churn Modelling</span>
-          <span class="chip chip-default">Segmentation</span>
-        </div>
-      </a>
-
-      <a href="activity-metrics/" class="project-card">
-        <div class="project-top">
-          <div>
-            <div class="project-title">Activity metrics by segment</div>
-            <div class="project-org mono">Exchanges · Nights · Success rate</div>
-          </div>
-          <span class="project-arrow">↗</span>
-        </div>
-        <p class="project-desc">
-          Second Year customers are the most active — 5.84 avg completed exchanges vs 5.06 for High Value. Only ~5% of requests result in a completed exchange across all segments.
-        </p>
-        <div class="chip-row">
-          <span class="chip chip-sql">SQL</span>
-          <span class="chip chip-default">Behavioural Analysis</span>
-          <span class="chip chip-default">Segmentation</span>
-        </div>
-      </a>
-
-      <a href="referral-promotion/" class="project-card">
-        <div class="project-top">
-          <div>
-            <div class="project-title">Referral &amp; promotion effect</div>
-            <div class="project-org mono">Strongest retention signal in the dataset</div>
-          </div>
-          <span class="project-arrow">↗</span>
-        </div>
-        <p class="project-desc">
-          Promotions reduce churn from 46.8% to just 7%. Referral + promotion combined produces 4.9% churn — the lowest in the entire dataset.
-        </p>
-        <div class="chip-row">
-          <span class="chip chip-sql">SQL</span>
+          <span class="chip chip-default">Strategy</span>
           <span class="chip chip-default">Retention</span>
           <span class="chip chip-default">Marketing</span>
-        </div>
-      </a>
-
-      <a href="geo-explorer/" class="project-card">
-        <div class="project-top">
-          <div>
-            <div class="project-title">Geographic exchange explorer</div>
-            <div class="project-org mono">Interactive origin · destination map</div>
-          </div>
-          <span class="project-arrow">↗</span>
-        </div>
-        <p class="project-desc">
-          Select any country to explore where its members travel — or who visits it. France dominates as both origin and destination. Interactive world map with 70 countries and 568 origin-destination pairs.
-        </p>
-        <div class="chip-row">
-          <span class="chip chip-sql">SQL</span>
-          <span class="chip chip-bq">BigQuery</span>
-          <span class="chip chip-default">D3.js</span>
-          <span class="chip chip-default">Geographic Analysis</span>
+          <span class="chip chip-default">Product</span>
         </div>
       </a>
 
