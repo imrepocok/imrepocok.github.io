@@ -196,28 +196,66 @@
     </div>
   </section>
 
-  <!-- Next steps -->
+  <!-- Analysis pages -->
   <section class="section fade-up">
-    <div class="section-label">Analysis roadmap</div>
-    <div class="finding-grid">
-      <div class="finding-card">
-        <div class="finding-title">Churn by tenure</div>
-        <div class="finding-text">Do long-term members renew at higher rates? Where does the biggest drop-off occur?</div>
+    <div class="section-label">Analysis</div>
+    <div class="projects-grid">
+
+      <a href="covid-travel/" class="project-card featured">
+        <div class="project-top">
+          <div>
+            <div class="project-title">Covid-19 impact on travel patterns</div>
+            <div class="project-org mono">Monthly breakdown · 2019–2022</div>
+          </div>
+          <span class="project-arrow">↗</span>
+        </div>
+        <p class="project-desc">
+          Domestic exchanges surged from 40% to 83.5% during peak Covid restrictions. Month-by-month analysis pinpoints the exact moment lockdowns hit and tracks the slow recovery toward pre-pandemic patterns.
+        </p>
+        <div class="chip-row">
+          <span class="chip chip-sql">SQL</span>
+          <span class="chip chip-bq">BigQuery</span>
+          <span class="chip chip-default">Travel Behaviour</span>
+          <span class="chip chip-default">Covid Analysis</span>
+        </div>
+      </a>
+
+      <div class="project-card" style="cursor:default;">
+        <div class="project-top">
+          <div>
+            <div class="project-title">Churn by customer segment</div>
+            <div class="project-org mono">In progress</div>
+          </div>
+        </div>
+        <p class="project-desc">
+          New customers churn at 56.6% — the highest of any segment. Second year is the crucial turning point. Analysis of what drives retention beyond year one.
+        </p>
+        <div class="chip-row">
+          <span class="chip chip-sql">SQL</span>
+          <span class="chip chip-default">Churn Modelling</span>
+          <span class="chip chip-default">Segmentation</span>
+        </div>
       </div>
-      <div class="finding-card">
-        <div class="finding-title">Activity vs churn</div>
-        <div class="finding-text">Members who never completed an exchange — are they the highest churn risk?</div>
+
+      <div class="project-card" style="cursor:default;">
+        <div class="project-top">
+          <div>
+            <div class="project-title">Geographic churn — US vs Europe</div>
+            <div class="project-org mono">In progress</div>
+          </div>
+        </div>
+        <p class="project-desc">
+          Americans often subscribe without an immediate exchange — does this translate to higher churn? Continent-level analysis of retention behaviour.
+        </p>
+        <div class="chip-row">
+          <span class="chip chip-sql">SQL</span>
+          <span class="chip chip-default">Geography</span>
+          <span class="chip chip-default">Churn</span>
+        </div>
       </div>
-      <div class="finding-card">
-        <div class="finding-title">Geographic patterns</div>
-        <div class="finding-text">US vs European churn behaviour. Which countries over- or under-perform?</div>
-      </div>
-      <div class="finding-card">
-        <div class="finding-title">Referral &amp; promo effect</div>
-        <div class="finding-text">Do referred or discounted members retain better than organic subscribers?</div>
-      </div>
+
     </div>
-    <p style="font-size:13px;color:var(--text-tertiary);font-family:'DM Mono',monospace;">Analysis in progress — findings and visualisations will be added as the project develops.</p>
+    <p style="font-size:13px;color:var(--text-tertiary);font-family:'DM Mono',monospace;margin-top:1rem;">Analysis ongoing — new findings added as the project develops.</p>
   </section>
 
 </div>
