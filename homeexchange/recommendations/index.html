@@ -1,1 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Recommendations — HomeExchange</title>
+  <meta name="description" content="Actionable recommendations from the HomeExchange customer behaviour and retention analysis." />
+  <link rel="stylesheet" href="../../style.css" />
+  <style>
+    .rec-card {
+      background: var(--surface);
+      border: 0.5px solid var(--border);
+      border-radius: var(--border-radius-lg);
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    .rec-number {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: var(--text-tertiary);
+      letter-spacing: 0.08em;
+      margin-bottom: 0.5rem;
+    }
+    .rec-title {
+      font-size: 16px;
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+    }
+    .rec-body {
+      font-size: 14px;
+      color: var(--text-secondary);
+      font-weight: 300;
+      line-height: 1.8;
+      margin-bottom: 1rem;
+    }
+    .rec-evidence {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      background: var(--tag-bg);
+      border-radius: var(--border-radius-md);
+      padding: 0.75rem 1rem;
+      margin-bottom: 0.75rem;
+    }
+    .rec-evidence-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      color: var(--text-tertiary);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      white-space: nowrap;
+      padding-top: 1px;
+      min-width: 60px;
+    }
+    .rec-evidence-text {
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+    .rec-tags {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .rec-tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      padding: 3px 8px;
+      border-radius: 2px;
+      background: var(--tag-bg);
+      color: var(--text-secondary);
+    }
+    .rec-tag.product  { background: var(--purple-bg); color: var(--purple-text); }
+    .rec-tag.marketing { background: var(--blue-bg); color: var(--blue-text); }
+    .rec-tag.growth   { background: var(--green-bg); color: var(--green-text); }
+    .rec-tag.retention { background: var(--amber-bg); color: var(--amber-text); }
+    .impact-row {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap: 1px;
+      border: 0.5px solid var(--border);
+      border-radius: var(--border-radius-md);
+      overflow: hidden;
+      margin-top: 1rem;
+    }
+    .impact-cell {
+      background: var(--surface);
+      padding: 0.75rem 1rem;
+    }
+    .impact-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      color: var(--text-tertiary);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 4px;
+    }
+    .impact-val {
+      font-size: 15px;
+      font-weight: 500;
+    }
+    :root {
+      --surface: #ffffff;
+      --border: #e8e6e0;
+      --tag-bg: #f0ede8;
+      --text-tertiary: #9c9a94;
+      --text-secondary: #5c5a54;
+      --purple-bg: #f0eefe; --purple-text: #3d2a9e;
+      --blue-bg: #e8f0fb; --blue-text: #1a4580;
+      --green-bg: #e6f3e6; --green-text: #1a5c1a;
+      --amber-bg: #faf0d8; --amber-text: #7a4f00;
+      --border-radius-md: 8px; --border-radius-lg: 12px;
+    }
+  </style>
+</head>
+<body>
 
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="nav-logo mono">tamás imre</a>
+    <ul class="nav-links">
+      <li><a href="/#projects">projects</a></li>
+      <li><a href="/homeexchange/">homeexchange</a></li>
+      <li><a href="mailto:imre.tamas@gmail.com">contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="container" style="padding-top:2rem; padding-bottom:4rem;">
+
+  <a href="/homeexchange/" class="back-link">← back to homeexchange</a>
+
+  <section class="project-hero fade-up">
+    <p class="project-hero-meta">HomeExchange · Recommendations · Based on 2019–2022 data</p>
+    <h1>From data<br>to <strong>action</strong></h1>
+    <p class="project-hero-desc">
+      Six concrete recommendations derived directly from the analysis. Each is tied to a specific finding, a measurable baseline, and a target outcome. Ordered by estimated impact on retention.
+    </p>
+    <div class="tag-row">
+      <span class="tag">Strategy</span>
+      <span class="tag">Retention</span>
+      <span class="tag">Marketing</span>
+      <span class="tag">Product</span>
+    </div>
+  </section>
+
+  <section class="section fade-up">
+    <div class="section-label">Recommendations</div>
+
+    <!-- R1 -->
+    <div class="rec-card">
+      <div class="rec-number">01 — Highest priority</div>
+      <div class="rec-title">Drive new subscribers to their first completed exchange within 90 days</div>
+      <div class="rec-body">
+        New customers churn at 56.6% — the highest of any segment. The data shows that members who never complete an exchange churn at 67%, while those who complete even one drop to 47%. Getting a subscriber to their first successful exchange is the single most impactful retention action available.
+        <br><br>
+        Trigger a structured onboarding sequence: personalised home match suggestions at day 7, a first-exchange guide at day 14, and a direct re-engagement message at day 45 for members who have made no exchange requests.
+      </div>
+      <div class="rec-evidence">
+        <span class="rec-evidence-label">Evidence</span>
+        <span class="rec-evidence-text">Never requested: 67% churn · Requested never completed: 56.1% · High activity: 26.5% churn — a 40-point gap driven purely by exchange activity</span>
+      </div>
+      <div class="rec-evidence">
+        <span class="rec-evidence-label">Target</span>
+        <span class="rec-evidence-text">Reduce new customer churn from 56.6% → below 45% by increasing first-exchange completion rate within the subscription year</span>
+      </div>
+      <div class="rec-tags">
+        <span class="rec-tag product">Product</span>
+        <span class="rec-tag marketing">Marketing</span>
+        <span class="rec-tag retention">Retention</span>
+      </div>
+    </div>
+
+    <!-- R2 -->
+    <div class="rec-card">
+      <div class="rec-number">02 — Highest impact per euro spent</div>
+      <div class="rec-title">Scale the promotional discount programme — it is the strongest retention lever in the dataset</div>
+      <div class="rec-body">
+        Subscribers who received a promotional discount churn at just 7.0% — compared to 46.8% for those who received no incentive. This is a 39.8-point reduction from a single intervention. The combined effect of referral and promotion produces 4.9% churn — effectively near-zero attrition.
+        <br><br>
+        Currently only 1,889 subscribers received a promotion with no referral, and 349 received both. These numbers are far too small relative to the 70,000+ subscriber base. A targeted promotion strategy — especially at renewal time — would have outsized impact.
+      </div>
+      <div class="rec-evidence">
+        <span class="rec-evidence-label">Evidence</span>
+        <span class="rec-evidence-text">No referral, no promo: 46.8% churn · Promotion only: 7.0% · Referral + promo: 4.9% — the largest single churn reduction in the entire analysis</span>
+      </div>
+      <div class="rec-evidence">
+        <span class="rec-evidence-label">Target</span>
+        <span class="rec-evidence-text">Offer a targeted renewal discount to at-risk subscribers (low activity, approaching renewal with zero recent exchanges) and measure 12-month retention lift</span>
+      </div>
+      <div class="rec-tags">
+        <span class="rec-tag marketing">Marketing</span>
+        <span class="rec-tag retention">Retention</span>
+      </div>
+    </div>
+
+    <!-- R3 -->
+    <div class="rec-card">
+      <div class="rec-number">03</div>
+      <div class="rec-title">Invest in growing the referral programme — referred members churn 12 points less</div>
+      <div class="rec-body">
+        Referred subscribers churn at 34.2% vs 46.8% for organic subscribers — a 12.6-point improvement without any promotional cost. Yet only 6,388 out of 70,726 subscribers (9%) were referred. The referral channel is dramatically underutilised.
+        <br><br>
+        Introduce a structured member referral programme with incentives for both the referrer and the new member. Members who have completed 3+ exchanges are the ideal referrers — they are the most engaged and have the most to say about the platform's value.
+      </div>
+      <div class="rec-evidence">
+        <span class="rec-evidence-label">Evidence</span>
+        <span class="rec-evidence-text">Referral churn: 34.2% vs baseline 46.8% · Only 9% of subscribers were referred · Referral + promo achieves lowest churn (4.9%) in entire dataset</span>
+      </div>
+      <div class="rec-evidence">
+        <span class="rec-evidence-label">Target</span>
+        <span class="rec-evidence-text">Grow referred subscriber share from 9% → 20% within 2 years. Each percentage point shift represents ~700 additional low-churn subscribers</span>
+      </div>
+      <div class="rec-tags">
+        <span class="rec-tag growth">Growth</span>
+        <span class="rec-tag marketing">Marketing</span>
+        <span class="rec-tag retention">Retention</span>
+      </div>
+    </div>
+
+    <!-- R4 -->
+    <div class="rec-card">
+      <div class="rec-number">04</div>
+      <div class="rec-title">Trigger a second-home listing prompt after the first completed exchange</div>
+      <div class="rec-body">
+        Users who list multiple homes are dramatically more engaged on both sides of the platform. 3+ home users complete 7.7 exchanges as guests and 7.7 as hosts — perfect symmetry, and 2.4x more than single-home users. They also churn 6 points less.
+        <br><br>
+        Critically, 60% of 3+ home hosts are paying subscribers, vs only 14.5% of single-home hosts — listing a second home is the strongest conversion signal in the data. After a member's first successful exchange, prompt them to add their second property if they have one. This single action could dramatically improve both engagement and subscription conversion among casual hosts.
+      </div>
+      <div class="rec-evidence">
+        <span class="rec-evidence-label">Evidence</span>
+        <span class="rec-evidence-text">1 home: 44.6% churn, 3.2 avg exchanges · 3+ homes: 38.6% churn, 7.7 avg exchanges · 60% of multi-home hosts are subscribers vs 14.5% single-home</span>
+      </div>
+      <div class="rec-evidence">
+        <span class="rec-evidence-label">Target</span>
+        <span class="rec-evidence-text">Increase multi-home listing rate among subscribers. Test a post-exchange prompt and measure second-home listing rate and 6-month retention vs control group</span>
+      </div>
+      <div class="rec-tags">
+        <span class="rec-tag product">Product</span>
+        <span class="rec-tag retention">Retention</span>
+        <span class="rec-tag growth">Growth</span>
+      </div>
+    </div>
+
+    <!-- R5 -->
+    <div class="rec-card">
+      <div class="rec-number">05</div>
+      <div class="rec-title">Prioritise geographic expansion only where local exchange density is sufficient</div>
+      <div class="rec-body">
+        Asia and South America churn at 52–53% — roughly 10 points above Europe and North America. The most likely cause is insufficient local community density: members in these markets cannot find enough nearby exchange partners, reducing platform value before they've had a chance to experience it.
+        <br><br>
+        Geographic expansion should follow a community-first model: build local listing density in a target city or region before marketing subscriptions. A minimum viable density threshold — for example 500 active listings within a metropolitan area — should be reached before subscription campaigns are activated.
+      </div>
+      <div class="rec-evidence">
+        <span class="rec-evidence-label">Evidence</span>
+        <span class="rec-evidence-text">Asia: 53.2% churn (680 subscribers) · South America: 52.4% (1,005) · Europe: 43.8% (46,428) · North America: 43.3% (17,074)</span>
+      </div>
+      <div class="rec-evidence">
+        <span class="rec-evidence-label">Target</span>
+        <span class="rec-evidence-text">Define a minimum listing density threshold for new market activation. Measure churn in pilot cities at launch vs 12 months after density threshold is reached</span>
+      </div>
+      <div class="rec-tags">
+        <span class="rec-tag growth">Growth</span>
+        <span class="rec-tag product">Product</span>
+      </div>
+    </div>
+
+    <!-- R6 -->
+    <div class="rec-card">
+      <div class="rec-number">06</div>
+      <div class="rec-title">Use Covid recovery data to plan seasonal and intercontinental campaigns</div>
+      <div class="rec-body">
+        Domestic exchanges peaked at 83.5% during Covid restrictions and have since stabilised at ~48% — permanently above the pre-Covid 40% baseline. Intercontinental travel, which generates the longest stays (avg 7.8 nights vs 5.4 domestic), has partially recovered but remains below 2019 levels.
+        <br><br>
+        Two opportunities: first, develop domestic exchange campaigns targeted at members who have only ever exchanged locally — they are the most likely to try continental or intercontinental exchanges as confidence returns. Second, intercontinental exchanges are the highest-value stays — a targeted campaign highlighting long-stay international options could reactivate members who have been dormant since 2020.
+      </div>
+      <div class="rec-evidence">
+        <span class="rec-evidence-label">Evidence</span>
+        <span class="rec-evidence-text">Pre-Covid domestic: 40% · Covid peak: 83.5% · 2022 new normal: ~48% · Intercontinental avg nights: 7.8 vs domestic 5.4 — 44% longer stays</span>
+      </div>
+      <div class="rec-evidence">
+        <span class="rec-evidence-label">Target</span>
+        <span class="rec-evidence-text">Grow intercontinental exchange share back toward pre-Covid 22-24% by 2024. Identify domestic-only members with 3+ exchanges as the prime intercontinental upsell audience</span>
+      </div>
+      <div class="rec-tags">
+        <span class="rec-tag marketing">Marketing</span>
+        <span class="rec-tag retention">Retention</span>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- Summary -->
+  <section class="section fade-up">
+    <div class="section-label">Summary</div>
+    <div class="content-block">
+      <h2>Priority matrix</h2>
+      <p>Ordered by estimated retention impact based on the data. The first three recommendations address the largest churn drivers; the remaining three are growth and expansion opportunities.</p>
+    </div>
+    <div style="overflow-x:auto;">
+      <table style="width:100%;border-collapse:collapse;font-size:13px;font-family:'DM Mono',monospace;">
+        <thead>
+          <tr style="border-bottom:1px solid #e8e6e0;">
+            <th style="text-align:left;padding:10px 8px;color:#9c9a94;font-weight:400;">#</th>
+            <th style="text-align:left;padding:10px 8px;color:#9c9a94;font-weight:400;">Recommendation</th>
+            <th style="text-align:left;padding:10px 8px;color:#9c9a94;font-weight:400;">Owner</th>
+            <th style="text-align:right;padding:10px 8px;color:#9c9a94;font-weight:400;">Churn baseline</th>
+            <th style="text-align:right;padding:10px 8px;color:#9c9a94;font-weight:400;">Target</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom:0.5px solid #e8e6e0;">
+            <td style="padding:10px 8px;color:#9c9a94;">01</td>
+            <td style="padding:10px 8px;font-weight:500;">First exchange in 90 days</td>
+            <td style="padding:10px 8px;color:#9c9a94;">Product · CRM</td>
+            <td style="text-align:right;padding:10px 8px;color:#a32d2d;">56.6%</td>
+            <td style="text-align:right;padding:10px 8px;color:#1a5c1a;">&lt;45%</td>
+          </tr>
+          <tr style="border-bottom:0.5px solid #e8e6e0;background:#f5f3ef;">
+            <td style="padding:10px 8px;color:#9c9a94;">02</td>
+            <td style="padding:10px 8px;font-weight:500;">Scale promotional discounts</td>
+            <td style="padding:10px 8px;color:#9c9a94;">Marketing</td>
+            <td style="text-align:right;padding:10px 8px;color:#a32d2d;">46.8%</td>
+            <td style="text-align:right;padding:10px 8px;color:#1a5c1a;">~7%</td>
+          </tr>
+          <tr style="border-bottom:0.5px solid #e8e6e0;">
+            <td style="padding:10px 8px;color:#9c9a94;">03</td>
+            <td style="padding:10px 8px;font-weight:500;">Grow referral programme</td>
+            <td style="padding:10px 8px;color:#9c9a94;">Growth · Marketing</td>
+            <td style="text-align:right;padding:10px 8px;color:#a32d2d;">46.8%</td>
+            <td style="text-align:right;padding:10px 8px;color:#1a5c1a;">~34%</td>
+          </tr>
+          <tr style="border-bottom:0.5px solid #e8e6e0;background:#f5f3ef;">
+            <td style="padding:10px 8px;color:#9c9a94;">04</td>
+            <td style="padding:10px 8px;font-weight:500;">Second-home listing prompt</td>
+            <td style="padding:10px 8px;color:#9c9a94;">Product</td>
+            <td style="text-align:right;padding:10px 8px;color:#a32d2d;">44.6%</td>
+            <td style="text-align:right;padding:10px 8px;color:#1a5c1a;">~39%</td>
+          </tr>
+          <tr style="border-bottom:0.5px solid #e8e6e0;">
+            <td style="padding:10px 8px;color:#9c9a94;">05</td>
+            <td style="padding:10px 8px;font-weight:500;">Density-first expansion</td>
+            <td style="padding:10px 8px;color:#9c9a94;">Growth · Strategy</td>
+            <td style="text-align:right;padding:10px 8px;color:#a32d2d;">~53%</td>
+            <td style="text-align:right;padding:10px 8px;color:#1a5c1a;">~44%</td>
+          </tr>
+          <tr>
+            <td style="padding:10px 8px;color:#9c9a94;">06</td>
+            <td style="padding:10px 8px;font-weight:500;">Intercontinental reactivation</td>
+            <td style="padding:10px 8px;color:#9c9a94;">Marketing</td>
+            <td style="text-align:right;padding:10px 8px;color:#9c9a94;">~18% share</td>
+            <td style="text-align:right;padding:10px 8px;color:#1a5c1a;">~22% share</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="contact-links">
+      <a href="mailto:imre.tamas@gmail.com" class="contact-link"><span class="contact-dot"></span> imre.tamas@gmail.com</a>
+      <a href="https://linkedin.com/in/tamas-imre-analyst" class="contact-link" target="_blank"><span class="contact-dot"></span> LinkedIn</a>
+      <a href="https://github.com/imrepocok" class="contact-link" target="_blank"><span class="contact-dot"></span> GitHub</a>
+    </div>
+    <span class="footer-copy mono">Berlin, Germany</span>
+  </div>
+</footer>
+
+</body>
+</html>
