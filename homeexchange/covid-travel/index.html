@@ -7,7 +7,6 @@
   <link rel="stylesheet" href="../../style.css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
   <style>
-    body { background: #fafaf8; }
     .chart-wrap { background: #fff; border: 0.5px solid #e8e6e0; border-radius: 10px; padding: 1.5rem; margin-bottom: 2rem; }
     .chart-title { font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 500; margin-bottom: 4px; }
     .chart-sub { font-family: 'DM Sans', sans-serif; font-size: 13px; color: #5c5a54; font-weight: 300; margin-bottom: 1.25rem; }
@@ -21,9 +20,7 @@
     .stat-label { font-family: 'DM Mono', monospace; font-size: 10px; color: #9c9a94; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 4px; }
     .stat-val { font-size: 22px; font-weight: 500; letter-spacing: -0.02em; }
     .stat-desc { font-size: 11px; color: #5c5a54; font-weight: 300; margin-top: 2px; }
-    .red { color: #a32d2d; }
-    .green { color: #1a5c1a; }
-    .amber { color: #7a4f00; }
+    .red { color: #a32d2d; } .green { color: #1a5c1a; } .amber { color: #7a4f00; }
   </style>
 </head>
 <body>
@@ -43,38 +40,38 @@
   <a href="/homeexchange/" class="back-link">← back to homeexchange</a>
 
   <section class="project-hero fade-up">
-    <p class="project-hero-meta">HomeExchange · Travel Behaviour Analysis · 2019–2022</p>
+    <p class="project-hero-meta">HomeExchange · Travel Behaviour Analysis · 2005–2022</p>
     <h1><strong>Covid-19</strong> impact on<br>exchange travel patterns</h1>
     <p class="project-hero-desc">
-      Monthly analysis of domestic, continental, and intercontinental exchanges reveals the precise moment Covid-19 restrictions hit — and tracks the slow recovery back toward pre-pandemic travel patterns.
+      New subscriber acquisition peaked at 17,153 in 2019 then collapsed during Covid. Meanwhile domestic exchanges surged from 41% to 83.5% as international travel became impossible. This page tells the full story — from business growth to travel behaviour shift and the slow recovery.
     </p>
   </section>
 
   <!-- Key stats -->
   <div class="stat-row fade-up">
     <div class="stat">
-      <div class="stat-label">Pre-Covid domestic (2019 avg)</div>
-      <div class="stat-val amber">40%</div>
+      <div class="stat-label">Peak acquisition (2019)</div>
+      <div class="stat-val amber">17,153</div>
+      <div class="stat-desc">new subscribers</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">Peak domestic (May 2020)</div>
+      <div class="stat-val red">83.5%</div>
       <div class="stat-desc">of all completed exchanges</div>
     </div>
     <div class="stat">
-      <div class="stat-label">Peak Covid domestic (May 2020)</div>
-      <div class="stat-val red">83.5%</div>
-      <div class="stat-desc">highest point in dataset</div>
-    </div>
-    <div class="stat">
-      <div class="stat-label">Post-Covid domestic (2022 avg)</div>
+      <div class="stat-label">2022 new normal</div>
       <div class="stat-val green">48%</div>
-      <div class="stat-desc">recovering but still elevated</div>
+      <div class="stat-desc">domestic — permanently elevated</div>
     </div>
   </div>
 
-  <!-- Growth charts -->
+  <!-- Business context: growth charts -->
   <section class="section fade-up">
-    <div class="section-label">Business context</div>
+    <div class="section-label">Business context — subscriber growth</div>
     <div class="content-block">
       <h2>Acquisition collapsed — retention held the business together</h2>
-      <p>The platform grew steadily from 2005 to 2019, peaking at 17,153 new subscribers in 2019. When Covid hit, new acquisition dropped to 10K in 2020 and fell further to 7K in 2021. Yet total subscriber numbers kept rising — because existing members stayed. This makes the retention findings all the more critical: during Covid, retention was the only growth engine.</p>
+      <p>The platform grew steadily from 2005 to 2019, peaking at 17,153 new subscribers in 2019. When Covid hit, new acquisition dropped 42% to 9,898 in 2020 and fell further to 7,414 in 2021. Yet total subscriber numbers kept rising — because existing members stayed. During Covid, retention was the only growth engine.</p>
     </div>
 
     <div class="chart-wrap">
@@ -92,7 +89,7 @@
     <div class="finding-grid">
       <div class="finding-card">
         <div class="finding-title">2019 — peak acquisition</div>
-        <div class="finding-text">17,153 new subscribers — the platform's best year. Europe led with 13K new members, driven by strong organic growth</div>
+        <div class="finding-text">17,153 new subscribers — the platform's best year. Europe led with 13K new members driven by strong organic growth</div>
       </div>
       <div class="finding-card">
         <div class="finding-title">2020 — Covid shock</div>
@@ -109,6 +106,14 @@
     </div>
   </section>
 
+  <!-- Travel type chart -->
+  <section class="section fade-up">
+    <div class="section-label">Monthly travel type breakdown</div>
+    <div class="content-block">
+      <h2>How travel behaviour shifted month by month</h2>
+      <p>The monthly exchange data shows the precise moment lockdowns hit — and tracks the slow recovery toward pre-pandemic patterns.</p>
+    </div>
+
     <div class="chart-wrap">
       <div class="chart-title">Exchange travel type — % of monthly completed exchanges</div>
       <div class="chart-sub">Domestic · Continental · Intercontinental · Jan 2019 – Nov 2022</div>
@@ -120,14 +125,33 @@
       </div>
       <canvas id="travelChart" style="max-height:160px;"></canvas>
     </div>
+
+    <div class="finding-grid">
+      <div class="finding-card">
+        <div class="finding-title">Lockdown impact — immediate</div>
+        <div class="finding-text">Domestic share jumped from 41% in Feb 2020 to 72% by April 2020 — within just 6 weeks of the first restrictions</div>
+      </div>
+      <div class="finding-card">
+        <div class="finding-title">Intercontinental — near zero</div>
+        <div class="finding-text">Intercontinental exchanges collapsed to just 3.2% in June 2020 — from a pre-Covid baseline of ~24%</div>
+      </div>
+      <div class="finding-card">
+        <div class="finding-title">Second wave — Feb 2021</div>
+        <div class="finding-text">Domestic peaked again at 82.1% in February 2021 as European countries re-entered lockdown</div>
+      </div>
+      <div class="finding-card">
+        <div class="finding-title">Permanent behavioural shift</div>
+        <div class="finding-text">By end of 2022, domestic stabilised at ~48-50% — higher than the pre-Covid 40% baseline, suggesting lasting behaviour change</div>
+      </div>
+    </div>
   </section>
 
-  <!-- Stay length section -->
+  <!-- Stay length -->
   <section class="section fade-up">
     <div class="section-label">Stay length by travel type</div>
     <div class="content-block">
       <h2>The further you travel, the longer you stay</h2>
-      <p>Intercontinental exchanges average 7.8 nights — 44% longer than domestic stays at 5.4 nights. This makes economic sense: members who travel long-haul justify the cost by staying longer. The top 10% of intercontinental exchanges last 15+ nights.</p>
+      <p>Intercontinental exchanges average 7.8 nights — 44% longer than domestic stays at 5.4 nights. Members who travel long-haul justify the cost by staying longer. The top 10% of intercontinental exchanges last 15+ nights.</p>
     </div>
 
     <div class="chart-wrap">
@@ -151,26 +175,7 @@
       </div>
       <div class="finding-card">
         <div class="finding-title">Covid compounded the loss</div>
-        <div class="finding-text">When intercontinental travel collapsed in 2020, the platform lost its longest stays — replaced by shorter domestic breaks, reducing overall platform engagement</div>
-      </div>
-    </div>
-  </section>
-    <div class="finding-grid">
-      <div class="finding-card">
-        <div class="finding-title">Lockdown impact — immediate</div>
-        <div class="finding-text">Domestic share jumped from 41% in Feb 2020 to 72% by April 2020 — within just 6 weeks of the first restrictions</div>
-      </div>
-      <div class="finding-card">
-        <div class="finding-title">Intercontinental — near zero</div>
-        <div class="finding-text">Intercontinental exchanges collapsed to just 3.2% in June 2020 — from a pre-Covid baseline of ~24%</div>
-      </div>
-      <div class="finding-card">
-        <div class="finding-title">Second wave — Feb 2021</div>
-        <div class="finding-text">Domestic peaked again at 82.1% in February 2021 as European countries re-entered lockdown</div>
-      </div>
-      <div class="finding-card">
-        <div class="finding-title">Permanent behavioural shift</div>
-        <div class="finding-text">By end of 2022, domestic exchanges stabilised at ~48-50% — higher than the pre-Covid 40% baseline, suggesting lasting behaviour change</div>
+        <div class="finding-text">When intercontinental travel collapsed in 2020, the platform lost its longest stays — replaced by shorter domestic breaks</div>
       </div>
     </div>
   </section>
@@ -189,6 +194,59 @@
 </footer>
 
 <script>
+const years = ['2005','2006','2007','2008','2009','2010','2011','2012','2013','2014','2015','2016','2017','2018','2019','2020','2021'];
+
+const CC = {
+  'Europe':        { bg:'#B5D4F4', border:'#185FA5' },
+  'North America': { bg:'#9FE1CB', border:'#0F6E56' },
+  'Oceania':       { bg:'#fac775', border:'#854F0B' },
+  'Asia':          { bg:'#AFA9EC', border:'#3C3489' },
+  'South America': { bg:'#F0997B', border:'#712B13' },
+  'Africa':        { bg:'#D3D1C7', border:'#5F5E5A' }
+};
+
+const C1 = {
+  'Africa':        [3,5,9,16,21,27,33,54,65,96,120,150,187,279,490,584,614],
+  'Asia':          [7,3,11,24,27,54,87,94,133,156,205,245,309,414,603,631,589],
+  'Europe':        [207,355,613,935,1447,2397,3515,4835,6358,8278,10308,12525,15213,21022,34040,41592,47035],
+  'North America': [320,497,722,964,1334,1987,2606,3256,3914,4930,5852,6994,8495,10698,13772,15600,17242],
+  'Oceania':       [52,84,115,139,182,268,352,449,529,656,819,1022,1227,1539,1917,2096,2164],
+  'South America': [6,7,13,18,31,46,57,78,114,156,190,257,307,444,756,902,1015]
+};
+
+const C2 = {
+  'Africa':        [2,2,4,7,6,9,9,17,15,27,30,27,37,95,208,100,67],
+  'Asia':          [6,2,6,10,9,27,30,24,31,37,40,47,63,99,173,55,25],
+  'Europe':        [67,149,252,337,507,943,1117,1322,1526,1927,2029,2217,2694,5795,13032,7561,5449],
+  'North America': [106,180,224,243,379,646,624,649,671,1004,936,1177,1472,2212,3067,1853,1686],
+  'Oceania':       [16,32,31,25,43,85,88,93,80,131,164,202,208,312,374,183,74],
+  'South America': [5,1,6,6,13,15,16,19,34,44,35,62,65,135,299,146,113]
+};
+
+function mkDS(data) {
+  return Object.entries(data).map(([k,v]) => ({
+    label: k, data: v,
+    backgroundColor: CC[k].bg, borderColor: CC[k].border,
+    borderWidth: 0.5, borderRadius: 2
+  }));
+}
+
+const stackOpts = {
+  responsive: true, maintainAspectRatio: false,
+  plugins: {
+    legend: { position:'top', labels:{ font:{family:"'DM Mono',monospace",size:10}, padding:12, boxWidth:12 } },
+    tooltip: { backgroundColor:'#1a1916', titleFont:{family:"'DM Mono',monospace",size:11}, bodyFont:{family:"'DM Mono',monospace",size:11},
+      callbacks:{ label: c => ` ${c.dataset.label}: ${c.parsed.y.toLocaleString()}` } }
+  },
+  scales: {
+    x: { stacked:true, ticks:{font:{family:"'DM Mono',monospace",size:10},color:'#9c9a94'}, grid:{display:false} },
+    y: { stacked:true, ticks:{font:{family:"'DM Mono',monospace",size:10},color:'#9c9a94', callback:v=>v>=1000?(v/1000).toFixed(0)+'K':v}, grid:{color:'#f0ede8'} }
+  }
+};
+
+new Chart(document.getElementById('growthChart').getContext('2d'), { type:'bar', data:{labels:years,datasets:mkDS(C1)}, options:stackOpts });
+new Chart(document.getElementById('acquisitionChart').getContext('2d'), { type:'bar', data:{labels:years,datasets:mkDS(C2)}, options:stackOpts });
+
 const data = [
   {m:"2019-01",D:29.6,C:41.5,I:28.9},{m:"2019-02",D:34.5,C:41.9,I:23.6},
   {m:"2019-03",D:33.4,C:42.0,I:24.6},{m:"2019-04",D:36.9,C:38.7,I:24.4},
@@ -216,214 +274,41 @@ const data = [
   {m:"2022-11",D:50.6,C:30.4,I:19.0}
 ];
 
-const years = ['2005','2006','2007','2008','2009','2010','2011','2012','2013','2014','2015','2016','2017','2018','2019','2020','2021'];
-
-const continentColors = {
-  'Europe':        { bg: '#B5D4F4', border: '#185FA5' },
-  'North America': { bg: '#9FE1CB', border: '#0F6E56' },
-  'Oceania':       { bg: '#fac775', border: '#854F0B' },
-  'Asia':          { bg: '#AFA9EC', border: '#3C3489' },
-  'South America': { bg: '#F0997B', border: '#712B13' },
-  'Africa':        { bg: '#D3D1C7', border: '#5F5E5A' }
-};
-
-const chart1Data = {
-  'Africa':        [3,5,9,16,21,27,33,54,65,96,120,150,187,279,490,584,614],
-  'Asia':          [7,3,11,24,27,54,87,94,133,156,205,245,309,414,603,631,589],
-  'Europe':        [207,355,613,935,1447,2397,3515,4835,6358,8278,10308,12525,15213,21022,34040,41592,47035],
-  'North America': [320,497,722,964,1334,1987,2606,3256,3914,4930,5852,6994,8495,10698,13772,15600,17242],
-  'Oceania':       [52,84,115,139,182,268,352,449,529,656,819,1022,1227,1539,1917,2096,2164],
-  'South America': [6,7,13,18,31,46,57,78,114,156,190,257,307,444,756,902,1015]
-};
-
-const chart2Data = {
-  'Africa':        [2,2,4,7,6,9,9,17,15,27,30,27,37,95,208,100,67],
-  'Asia':          [6,2,6,10,9,27,30,24,31,37,40,47,63,99,173,55,25],
-  'Europe':        [67,149,252,337,507,943,1117,1322,1526,1927,2029,2217,2694,5795,13032,7561,5449],
-  'North America': [106,180,224,243,379,646,624,649,671,1004,936,1177,1472,2212,3067,1853,1686],
-  'Oceania':       [16,32,31,25,43,85,88,93,80,131,164,202,208,312,374,183,74],
-  'South America': [5,1,6,6,13,15,16,19,34,44,35,62,65,135,299,146,113]
-};
-
-function makeDatasets(data) {
-  return Object.entries(data).map(([cont, vals]) => ({
-    label: cont,
-    data: vals,
-    backgroundColor: continentColors[cont].bg,
-    borderColor: continentColors[cont].border,
-    borderWidth: 0.5,
-    borderRadius: 2
-  }));
-}
-
-const stackedOpts = {
-  responsive: true,
-  maintainAspectRatio: false,
-  plugins: {
-    legend: {
-      position: 'top',
-      labels: { font: { family: "'DM Mono',monospace", size: 10 }, padding: 12, boxWidth: 12 }
-    },
-    tooltip: {
-      backgroundColor: '#1a1916',
-      titleFont: { family: "'DM Mono',monospace", size: 11 },
-      bodyFont:  { family: "'DM Mono',monospace", size: 11 },
-      callbacks: { label: ctx => ` ${ctx.dataset.label}: ${ctx.parsed.y.toLocaleString()}` }
-    }
-  },
-  scales: {
-    x: {
-      stacked: true,
-      ticks: { font: { family: "'DM Mono',monospace", size: 10 }, color: '#9c9a94' },
-      grid: { display: false }
-    },
-    y: {
-      stacked: true,
-      ticks: {
-        font: { family: "'DM Mono',monospace", size: 10 },
-        color: '#9c9a94',
-        callback: v => v >= 1000 ? (v/1000).toFixed(0)+'K' : v
-      },
-      grid: { color: '#f0ede8' }
-    }
-  }
-};
-
-new Chart(document.getElementById('growthChart').getContext('2d'), {
-  type: 'bar',
-  data: { labels: years, datasets: makeDatasets(chart1Data) },
-  options: stackedOpts
-});
-
-new Chart(document.getElementById('acquisitionChart').getContext('2d'), {
-  type: 'bar',
-  data: { labels: years, datasets: makeDatasets(chart2Data) },
-  options: stackedOpts
-});
-
 const labels = data.map(d => d.m);
-
-const ctx = document.getElementById('travelChart').getContext('2d');
-new Chart(ctx, {
+new Chart(document.getElementById('travelChart').getContext('2d'), {
   type: 'line',
   data: {
     labels,
     datasets: [
-      {
-        label: 'Domestic',
-        data: data.map(d => d.D),
-        borderColor: '#1a1916',
-        backgroundColor: 'rgba(26,25,22,0.06)',
-        borderWidth: 2,
-        pointRadius: 2,
-        tension: 0.3,
-        fill: false
-      },
-      {
-        label: 'Continental',
-        data: data.map(d => d.C),
-        borderColor: '#185FA5',
-        backgroundColor: 'rgba(24,95,165,0.06)',
-        borderWidth: 2,
-        pointRadius: 2,
-        tension: 0.3,
-        fill: false
-      },
-      {
-        label: 'Intercontinental',
-        data: data.map(d => d.I),
-        borderColor: '#854F0B',
-        backgroundColor: 'rgba(133,79,11,0.06)',
-        borderWidth: 2,
-        pointRadius: 2,
-        tension: 0.3,
-        fill: false
-      }
+      { label:'Domestic', data:data.map(d=>d.D), borderColor:'#1a1916', backgroundColor:'rgba(26,25,22,0.06)', borderWidth:2, pointRadius:2, tension:0.3, fill:false },
+      { label:'Continental', data:data.map(d=>d.C), borderColor:'#185FA5', backgroundColor:'rgba(24,95,165,0.06)', borderWidth:2, pointRadius:2, tension:0.3, fill:false },
+      { label:'Intercontinental', data:data.map(d=>d.I), borderColor:'#854F0B', backgroundColor:'rgba(133,79,11,0.06)', borderWidth:2, pointRadius:2, tension:0.3, fill:false }
     ]
   },
   options: {
-    responsive: true,
-    maintainAspectRatio: false,
-    interaction: { mode: 'index', intersect: false },
+    responsive:true, maintainAspectRatio:false,
+    interaction:{ mode:'index', intersect:false },
     plugins: {
-      legend: {
-        position: 'bottom',
-        labels: { font: { family: "'DM Mono', monospace", size: 11 }, padding: 16, boxWidth: 24 }
-      },
-      tooltip: {
-        backgroundColor: '#1a1916',
-        titleFont: { family: "'DM Mono', monospace", size: 11 },
-        bodyFont: { family: "'DM Mono', monospace", size: 11 },
-        callbacks: { label: ctx => ` ${ctx.dataset.label}: ${ctx.parsed.y.toFixed(1)}%` }
-      }
+      legend:{ position:'bottom', labels:{ font:{family:"'DM Mono',monospace",size:11}, padding:16, boxWidth:24 } },
+      tooltip:{ backgroundColor:'#1a1916', titleFont:{family:"'DM Mono',monospace",size:11}, bodyFont:{family:"'DM Mono',monospace",size:11}, callbacks:{label:c=>` ${c.dataset.label}: ${c.parsed.y.toFixed(1)}%`} }
     },
     scales: {
-      x: {
-        ticks: {
-          font: { family: "'DM Mono', monospace", size: 10 },
-          maxRotation: 45,
-          color: '#9c9a94',
-          callback: function(val, idx) {
-            const m = labels[idx];
-            return m.endsWith('-01') ? m.slice(0,4) : '';
-          }
-        },
-        grid: { color: '#f0ede8' }
-      },
-      y: {
-        min: 0, max: 100,
-        ticks: { font: { family: "'DM Mono', monospace", size: 10 }, color: '#9c9a94', callback: v => v + '%' },
-        grid: { color: '#f0ede8' }
-      }
+      x:{ ticks:{font:{family:"'DM Mono',monospace",size:10},maxRotation:45,color:'#9c9a94',callback:function(val,idx){const m=labels[idx];return m.endsWith('-01')?m.slice(0,4):''}}, grid:{color:'#f0ede8'} },
+      y:{ min:0, max:100, ticks:{font:{family:"'DM Mono',monospace",size:10},color:'#9c9a94',callback:v=>v+'%'}, grid:{color:'#f0ede8'} }
     }
   }
 });
 
 new Chart(document.getElementById('nightsChart').getContext('2d'), {
-  type: 'bar',
-  data: {
-    labels: ['Domestic', 'Continental', 'Intercontinental'],
-    datasets: [
-      {
-        label: 'Average nights',
-        data: [5.4, 6.8, 7.8],
-        backgroundColor: ['#D3D1C7', '#B5D4F4', '#85B7EB'],
-        borderColor: ['#888780', '#378ADD', '#185FA5'],
-        borderWidth: 1,
-        borderRadius: 4
-      },
-      {
-        label: 'Median nights',
-        data: [4, 6, 6],
-        backgroundColor: ['#f0ede8', '#e6f1fb', '#b5d4f4'],
-        borderColor: ['#888780', '#378ADD', '#185FA5'],
-        borderWidth: 1,
-        borderRadius: 4
-      }
-    ]
-  },
-  options: {
-    responsive: true, maintainAspectRatio: false,
-    plugins: {
-      legend: {
-        position: 'bottom',
-        labels: { font: { family: "'DM Mono', monospace", size: 11 }, padding: 16, boxWidth: 24 }
-      },
-      tooltip: {
-        backgroundColor: '#1a1916',
-        titleFont: { family: "'DM Mono', monospace", size: 11 },
-        bodyFont:  { family: "'DM Mono', monospace", size: 11 },
-        callbacks: { label: ctx => ` ${ctx.dataset.label}: ${ctx.parsed.y} nights` }
-      }
-    },
-    scales: {
-      x: { ticks: { font: { family: "'DM Mono', monospace", size: 11 }, color: '#9c9a94' }, grid: { display: false } },
-      y: {
-        min: 0, max: 10,
-        ticks: { font: { family: "'DM Mono', monospace", size: 11 }, color: '#9c9a94', callback: v => v + 'n' },
-        grid: { color: '#f0ede8' }
-      }
-    }
+  type:'bar',
+  data:{ labels:['Domestic','Continental','Intercontinental'], datasets:[
+    { label:'Average nights', data:[5.4,6.8,7.8], backgroundColor:['#D3D1C7','#B5D4F4','#85B7EB'], borderColor:['#888780','#378ADD','#185FA5'], borderWidth:1, borderRadius:4 },
+    { label:'Median nights',  data:[4,6,6],         backgroundColor:['#f0ede8','#e6f1fb','#b5d4f4'], borderColor:['#888780','#378ADD','#185FA5'], borderWidth:1, borderRadius:4 }
+  ]},
+  options:{
+    responsive:true, maintainAspectRatio:false,
+    plugins:{ legend:{position:'bottom',labels:{font:{family:"'DM Mono',monospace",size:11},padding:16,boxWidth:24}}, tooltip:{backgroundColor:'#1a1916',titleFont:{family:"'DM Mono',monospace",size:11},bodyFont:{family:"'DM Mono',monospace",size:11},callbacks:{label:c=>` ${c.dataset.label}: ${c.parsed.y} nights`}} },
+    scales:{ x:{ticks:{font:{family:"'DM Mono',monospace",size:11},color:'#9c9a94'},grid:{display:false}}, y:{min:0,max:10,ticks:{font:{family:"'DM Mono',monospace",size:11},color:'#9c9a94',callback:v=>v+'n'},grid:{color:'#f0ede8'}} }
   }
 });
 </script>
