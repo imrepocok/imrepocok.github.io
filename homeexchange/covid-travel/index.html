@@ -180,57 +180,7 @@ const data = [
   {m:"2022-11",D:50.6,C:30.4,I:19.0}
 ];
 
-new Chart(document.getElementById('nightsChart').getContext('2d'), {
-  type: 'bar',
-  data: {
-    labels: ['Domestic', 'Continental', 'Intercontinental'],
-    datasets: [
-      {
-        label: 'Average nights',
-        data: [5.4, 6.8, 7.8],
-        backgroundColor: ['#D3D1C7', '#B5D4F4', '#85B7EB'],
-        borderColor: ['#888780', '#378ADD', '#185FA5'],
-        borderWidth: 1,
-        borderRadius: 4
-      },
-      {
-        label: 'Median nights',
-        data: [4, 6, 6],
-        backgroundColor: ['#f0ede8', '#e6f1fb', '#b5d4f4'],
-        borderColor: ['#888780', '#378ADD', '#185FA5'],
-        borderWidth: 1,
-        borderRadius: 4
-      }
-    ]
-  },
-  options: {
-    responsive: true, maintainAspectRatio: false,
-    plugins: {
-      legend: {
-        position: 'bottom',
-        labels: { font: { family: "'DM Mono', monospace", size: 11 }, padding: 16, boxWidth: 24 }
-      },
-      tooltip: {
-        backgroundColor: '#1a1916',
-        titleFont: { family: "'DM Mono', monospace", size: 11 },
-        bodyFont:  { family: "'DM Mono', monospace", size: 11 },
-        callbacks: { label: ctx => ` ${ctx.dataset.label}: ${ctx.parsed.y} nights` }
-      }
-    },
-    scales: {
-      x: { ticks: { font: { family: "'DM Mono', monospace", size: 11 }, color: '#9c9a94' }, grid: { display: false } },
-      y: {
-        min: 0, max: 10,
-        ticks: { font: { family: "'DM Mono', monospace", size: 11 }, color: '#9c9a94', callback: v => v + 'n' },
-        grid: { color: '#f0ede8' }
-      }
-    }
-  }
-});
-
-const covidStart = labels.indexOf('2020-03');
-const covidPeak  = labels.indexOf('2020-05');
-const wave2      = labels.indexOf('2021-02');
+const labels = data.map(d => d.m);
 
 const ctx = document.getElementById('travelChart').getContext('2d');
 new Chart(ctx, {
@@ -277,21 +227,14 @@ new Chart(ctx, {
     plugins: {
       legend: {
         position: 'bottom',
-        labels: {
-          font: { family: "'DM Mono', monospace", size: 11 },
-          padding: 16,
-          boxWidth: 24
-        }
+        labels: { font: { family: "'DM Mono', monospace", size: 11 }, padding: 16, boxWidth: 24 }
       },
       tooltip: {
         backgroundColor: '#1a1916',
         titleFont: { family: "'DM Mono', monospace", size: 11 },
         bodyFont: { family: "'DM Mono', monospace", size: 11 },
-        callbacks: {
-          label: ctx => ` ${ctx.dataset.label}: ${ctx.parsed.y.toFixed(1)}%`
-        }
-      },
-      annotation: {}
+        callbacks: { label: ctx => ` ${ctx.dataset.label}: ${ctx.parsed.y.toFixed(1)}%` }
+      }
     },
     scales: {
       x: {
@@ -307,13 +250,56 @@ new Chart(ctx, {
         grid: { color: '#f0ede8' }
       },
       y: {
-        min: 0,
-        max: 100,
-        ticks: {
-          font: { family: "'DM Mono', monospace", size: 10 },
-          color: '#9c9a94',
-          callback: v => v + '%'
-        },
+        min: 0, max: 100,
+        ticks: { font: { family: "'DM Mono', monospace", size: 10 }, color: '#9c9a94', callback: v => v + '%' },
+        grid: { color: '#f0ede8' }
+      }
+    }
+  }
+});
+
+new Chart(document.getElementById('nightsChart').getContext('2d'), {
+  type: 'bar',
+  data: {
+    labels: ['Domestic', 'Continental', 'Intercontinental'],
+    datasets: [
+      {
+        label: 'Average nights',
+        data: [5.4, 6.8, 7.8],
+        backgroundColor: ['#D3D1C7', '#B5D4F4', '#85B7EB'],
+        borderColor: ['#888780', '#378ADD', '#185FA5'],
+        borderWidth: 1,
+        borderRadius: 4
+      },
+      {
+        label: 'Median nights',
+        data: [4, 6, 6],
+        backgroundColor: ['#f0ede8', '#e6f1fb', '#b5d4f4'],
+        borderColor: ['#888780', '#378ADD', '#185FA5'],
+        borderWidth: 1,
+        borderRadius: 4
+      }
+    ]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        position: 'bottom',
+        labels: { font: { family: "'DM Mono', monospace", size: 11 }, padding: 16, boxWidth: 24 }
+      },
+      tooltip: {
+        backgroundColor: '#1a1916',
+        titleFont: { family: "'DM Mono', monospace", size: 11 },
+        bodyFont:  { family: "'DM Mono', monospace", size: 11 },
+        callbacks: { label: ctx => ` ${ctx.dataset.label}: ${ctx.parsed.y} nights` }
+      }
+    },
+    scales: {
+      x: { ticks: { font: { family: "'DM Mono', monospace", size: 11 }, color: '#9c9a94' }, grid: { display: false } },
+      y: {
+        min: 0, max: 10,
+        ticks: { font: { family: "'DM Mono', monospace", size: 11 }, color: '#9c9a94', callback: v => v + 'n' },
         grid: { color: '#f0ede8' }
       }
     }
