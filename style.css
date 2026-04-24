@@ -324,9 +324,9 @@ footer {
   padding: 0 2rem;
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   flex-wrap: wrap;
-  gap: 1rem;
+  gap: 1.5rem;
 }
 
 .contact-links {
@@ -360,6 +360,52 @@ footer {
   font-family: 'DM Mono', monospace;
   font-size: 11px;
   color: var(--text-tertiary);
+  margin-bottom: 0.5rem;
+}
+
+/* Footer bottom section - groups location + privacy */
+.footer-bottom {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: flex-end;
+  text-align: right;
+}
+ 
+/* Privacy notice styling */
+.footer-privacy {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--text-tertiary);
+  line-height: 1.6;
+}
+ 
+.footer-privacy a {
+  color: var(--text-tertiary);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.15s;
+}
+ 
+.footer-privacy a:hover {
+  border-bottom-color: var(--text-tertiary);
+}
+ 
+/* Responsive: stack everything on mobile */
+@media (max-width: 640px) {
+  .footer-inner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .footer-bottom {
+    align-items: flex-start;
+    text-align: left;
+  }
+  
+  .footer-privacy {
+    font-size: 10px;
+  }
 }
 
 /* ── Project subpage styles ── */
@@ -598,43 +644,4 @@ footer {
 @media (max-width: 600px) {
   .skills-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
   .exp-year { min-width: 70px; }
-  .footer-inner { flex-direction: column; align-items: flex-start; }
-}
-
-/* Footer bottom section - stacks privacy notice below location */
-.footer-bottom {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  margin-top: 1rem;
-}
- 
-/* Privacy notice styling */
-.footer-privacy {
-  font-size: 0.75rem;
-  color: var(--text-dim, #888);
-  line-height: 1.6;
-}
- 
-.footer-privacy a {
-  color: var(--text-dim, #888);
-  text-decoration: underline;
-  text-decoration-color: rgba(136, 136, 136, 0.3);
-  transition: all 0.2s ease;
-}
- 
-.footer-privacy a:hover {
-  color: var(--text-primary, #000);
-  text-decoration-color: currentColor;
-}
- 
-/* Responsive: stack everything on mobile */
-@media (max-width: 640px) {
-  .footer-bottom {
-    align-items: flex-start;
-  }
-  
-  .footer-privacy {
-    font-size: 0.7rem;
-  }
 }
