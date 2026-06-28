@@ -53,7 +53,7 @@
       <div class="stat-card"><div class="stat-label">Distance</div><div class="stat-value">42,938</div><div class="stat-sub">km over 4 years</div></div>
       <div class="stat-card"><div class="stat-label">Trips</div><div class="stat-value">1,243</div><div class="stat-sub">across 5 countries</div></div>
       <div class="stat-card"><div class="stat-label">Highway</div><div class="stat-value">59%</div><div class="stat-sub">of distance driven</div></div>
-      <div class="stat-card"><div class="stat-label">Green premium</div><div class="stat-value">€6.1k+</div><div class="stat-sub">per tonne CO₂ avoided</div></div>
+      <div class="stat-card"><div class="stat-label">Green premium</div><div class="stat-value">€5.4k+</div><div class="stat-sub">per tonne CO₂ avoided</div></div>
     </div>
 
     <!-- The question -->
@@ -77,9 +77,9 @@
     <div class="content-block fade-up">
       <h2>The verdict — an expensive way to cut carbon</h2>
       <p>
-        On four years of real driving, every EV avoids CO₂ at <strong>€6,100–8,100 per tonne</strong>. For
+        On four years of real driving, every EV avoids CO₂ at <strong>€5,400–5,800 per tonne</strong>. For
         context, carbon trades at roughly €80/tonne on the EU market — so replacing a working hybrid is
-        something like <strong>75–100× more expensive</strong> than the market price of the emissions it saves.
+        something like <strong>65–70× more expensive</strong> than the market price of the emissions it saves.
         That's not an anti-EV result; it's the honest one. The financial case doesn't close, so the decision
         rests on commitment, not the fuel bill.
       </p>
@@ -101,6 +101,25 @@
       <div class="chart-wrap">
         <div class="chart-cap">Running cost — € per 100 km, real-world</div>
         <canvas id="chartLadder"></canvas>
+      </div>
+    </div>
+
+    <!-- ROI / payback -->
+    <div class="content-block fade-up">
+      <h2>The classic question — does the premium pay back?</h2>
+      <p>
+        At the dealership, the first question is always whether the pricier car earns its premium back. Run on
+        real driving, the answer splits sharply. The hybrid's roughly €4,000 premium over a conventional petrol
+        Corolla is repaid in about <strong>12 years</strong> of fuel savings — comfortably within the car's
+        working life. The EVs would take on the order of <strong>80 years</strong> to recoup their far larger
+        premium on fuel alone. One is an investment that pays back; the other only makes sense on grounds other
+        than money.
+      </p>
+      <div class="stat-grid">
+        <div class="stat-card"><div class="stat-label">Hybrid payback</div><div class="stat-value">~12 yr</div><div class="stat-sub">vs petrol Corolla</div></div>
+        <div class="stat-card"><div class="stat-label">EV payback</div><div class="stat-value">~80 yr</div><div class="stat-sub">on fuel savings alone</div></div>
+        <div class="stat-card"><div class="stat-label">Hybrid saving</div><div class="stat-value">€340</div><div class="stat-sub">per year vs petrol</div></div>
+        <div class="stat-card"><div class="stat-label">Hybrid premium</div><div class="stat-value">€4,000</div><div class="stat-sub">over the petrol model</div></div>
       </div>
     </div>
 
@@ -194,8 +213,8 @@
       <div class="finding-grid">
         <div class="finding-card">
           <div class="finding-icon">⚖️</div>
-          <div class="finding-title">EVs cost €6–8k per tonne CO₂</div>
-          <div class="finding-text">~75–100× the EU carbon price. Replacing a paid-off hybrid is an expensive way to cut emissions.</div>
+          <div class="finding-title">EVs cost €5.4–5.8k per tonne CO₂</div>
+          <div class="finding-text">~65–70× the EU carbon price. Replacing a paid-off hybrid is an expensive way to cut emissions.</div>
         </div>
         <div class="finding-card">
           <div class="finding-icon">🛣️</div>
@@ -251,8 +270,8 @@
 
   new Chart(document.getElementById('chartPremium'), {
     type: 'bar',
-    data: { labels: ['VW ID.4', 'Hyundai Ioniq 5', 'Kia EV6'],
-      datasets: [{ data: [6101, 7497, 8064], backgroundColor: [ink, ink, red], borderRadius: 2, barThickness: 46 }] },
+    data: { labels: ['VW ID.4', 'Kia EV6', 'Hyundai Ioniq 5'],
+      datasets: [{ data: [5381, 5636, 5775], backgroundColor: [ink, ink, red], borderRadius: 2, barThickness: 46 }] },
     options: Object.assign({}, baseOpts, { scales: Object.assign({}, baseOpts.scales, {
       y: Object.assign({}, baseOpts.scales.y, { ticks: Object.assign({}, baseOpts.scales.y.ticks, { callback: function (v) { return '€' + v.toLocaleString(); } }) }) }) })
   });
@@ -260,7 +279,7 @@
   new Chart(document.getElementById('chartLadder'), {
     type: 'bar',
     data: { labels: ['Corolla 1.8 (petrol)', 'Corolla Hybrid', 'Kia EV6', 'Hyundai Ioniq 5', 'VW ID.4'],
-      datasets: [{ data: [10.04, 9.29, 7.26, 7.02, 6.88], backgroundColor: [red, ink, blue, blue, blue], borderRadius: 2, barThickness: 38 }] },
+      datasets: [{ data: [12.44, 9.29, 5.94, 6.04, 6.43], backgroundColor: [red, ink, blue, blue, blue], borderRadius: 2, barThickness: 38 }] },
     options: Object.assign({}, baseOpts, { scales: Object.assign({}, baseOpts.scales, {
       y: Object.assign({}, baseOpts.scales.y, { ticks: Object.assign({}, baseOpts.scales.y.ticks, { callback: function (v) { return '€' + v.toFixed(0); } }) }) }) })
   });
