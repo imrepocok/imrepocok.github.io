@@ -109,17 +109,17 @@
       <h2>The classic question — does the premium pay back?</h2>
       <p>
         At the dealership, the first question is always whether the pricier car earns its premium back. Run on
-        real driving, the answer splits sharply. The hybrid's roughly €4,000 premium over a conventional petrol
-        Corolla is repaid in about <strong>12 years</strong> of fuel savings — comfortably within the car's
+        real driving, the answer splits sharply. The hybrid's roughly €2,500 premium over the conventional 1.2
+        Turbo petrol is repaid in about <strong>7 years</strong> of fuel savings — comfortably within the car's
         working life. The EVs would take on the order of <strong>80 years</strong> to recoup their far larger
         premium on fuel alone. One is an investment that pays back; the other only makes sense on grounds other
         than money.
       </p>
       <div class="stat-grid">
-        <div class="stat-card"><div class="stat-label">Hybrid payback</div><div class="stat-value">~12 yr</div><div class="stat-sub">vs petrol Corolla</div></div>
+        <div class="stat-card"><div class="stat-label">Hybrid payback</div><div class="stat-value">~7 yr</div><div class="stat-sub">vs 1.2 Turbo petrol</div></div>
         <div class="stat-card"><div class="stat-label">EV payback</div><div class="stat-value">~80 yr</div><div class="stat-sub">on fuel savings alone</div></div>
         <div class="stat-card"><div class="stat-label">Hybrid saving</div><div class="stat-value">€340</div><div class="stat-sub">per year vs petrol</div></div>
-        <div class="stat-card"><div class="stat-label">Hybrid premium</div><div class="stat-value">€4,000</div><div class="stat-sub">over the petrol model</div></div>
+        <div class="stat-card"><div class="stat-label">Hybrid premium</div><div class="stat-value">€2,500</div><div class="stat-sub">over the 1.2 Turbo</div></div>
       </div>
     </div>
 
@@ -278,7 +278,7 @@
 
   new Chart(document.getElementById('chartLadder'), {
     type: 'bar',
-    data: { labels: ['Corolla 1.8 (petrol)', 'Corolla Hybrid', 'Kia EV6', 'Hyundai Ioniq 5', 'VW ID.4'],
+    data: { labels: ['Corolla 1.2 Turbo', 'Corolla Hybrid', 'Kia EV6', 'Hyundai Ioniq 5', 'VW ID.4'],
       datasets: [{ data: [12.44, 9.29, 5.94, 6.04, 6.43], backgroundColor: [red, ink, blue, blue, blue], borderRadius: 2, barThickness: 38 }] },
     options: Object.assign({}, baseOpts, { scales: Object.assign({}, baseOpts.scales, {
       y: Object.assign({}, baseOpts.scales.y, { ticks: Object.assign({}, baseOpts.scales.y.ticks, { callback: function (v) { return '€' + v.toFixed(0); } }) }) }) })
