@@ -1,1 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Corolla — Driving Habits & the EV Decision · Tamás Imre</title>
+  <meta name="description" content="Four years of real telematics from one hybrid car, modelled with dbt + DuckDB to answer honestly whether replacing it with an EV makes sense — and at what cost per tonne of CO2 avoided." />
+  <link rel="stylesheet" href="../style.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+  <style>
+    .chart-wrap { background: var(--surface); border: 0.5px solid var(--border); border-radius: 10px; padding: 1.25rem 1.25rem 0.75rem; margin: 1rem 0 1.5rem; }
+    .chart-wrap canvas { max-height: 300px; }
+    .chart-cap { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.06em; color: var(--text-tertiary); text-transform: uppercase; margin-bottom: 0.75rem; }
+    .map-embed { width: 100%; height: 460px; border: 0.5px solid var(--border); border-radius: 10px; }
+    .pull { border-left: 3px solid #185FA5; padding: 0.25rem 0 0.25rem 1rem; margin: 1.25rem 0; font-size: 15px; font-weight: 300; color: var(--text-primary); line-height: 1.7; }
+  </style>
+</head>
+<body>
 
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="nav-logo mono">tamás imre</a>
+    <ul class="nav-links">
+      <li><a href="/#projects">projects</a></li>
+      <li><a href="/#experience">experience</a></li>
+      <li><a href="/#skills">skills</a></li>
+      <li><a href="mailto:imre.tamas@gmail.com">contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main>
+  <div class="container" style="padding-bottom:4rem;">
+    <a href="/" class="back-link">← back to portfolio</a>
+
+    <!-- Hero -->
+    <section class="project-hero fade-up">
+      <p class="project-hero-meta">Personal Project · 2026</p>
+      <h1>Corolla —<br><strong>Driving Habits & the EV Decision</strong></h1>
+      <p class="project-hero-desc">
+        Four years of real telematics from my own Toyota Corolla Hybrid, turned into an honest
+        answer to a question every driver faces: is replacing a paid-off, already-efficient hybrid
+        with an electric car actually worth it — and if the case isn't financial, what is it?
+      </p>
+      <p class="project-hero-desc" style="margin-bottom:0;">
+        Built end to end with a modern analytics-engineering stack — <strong>dbt</strong> +
+        <strong>DuckDB</strong> + <strong>Python</strong> — my first project on these tools.
+      </p>
+    </section>
+
+    <!-- Stats -->
+    <div class="stat-grid fade-up" style="margin-top:2.5rem;">
+      <div class="stat-card"><div class="stat-label">Distance</div><div class="stat-value">42,938</div><div class="stat-sub">km over 4 years</div></div>
+      <div class="stat-card"><div class="stat-label">Trips</div><div class="stat-value">1,243</div><div class="stat-sub">across 5 countries</div></div>
+      <div class="stat-card"><div class="stat-label">Highway</div><div class="stat-value">59%</div><div class="stat-sub">of distance driven</div></div>
+      <div class="stat-card"><div class="stat-label">Green premium</div><div class="stat-value">€6.1k+</div><div class="stat-sub">per tonne CO₂ avoided</div></div>
+    </div>
+
+    <!-- The question -->
+    <div class="content-block fade-up">
+      <h2>The question</h2>
+      <p>
+        Switching to an EV is tempting, but the honest test isn't "is electricity cheaper than petrol per
+        kilometre" — it is. The real question is whether replacing a paid-off, efficient hybrid pays off at
+        all, and at what cost. So instead of brochure figures, I costed every one of my real trips under each
+        candidate car, using my actual measured fuel use for the hybrid and community real-world figures for
+        the alternatives.
+      </p>
+      <p class="pull">
+        The headline metric isn't payback in years — it's <strong>euros paid per tonne of CO₂ avoided</strong>.
+        That reframes an EV from a financial decision into an environmental one, and lets you compare it against
+        what carbon actually costs.
+      </p>
+    </div>
+
+    <!-- The decision -->
+    <div class="content-block fade-up">
+      <h2>The verdict — an expensive way to cut carbon</h2>
+      <p>
+        On four years of real driving, every EV avoids CO₂ at <strong>€6,100–8,100 per tonne</strong>. For
+        context, carbon trades at roughly €80/tonne on the EU market — so replacing a working hybrid is
+        something like <strong>75–100× more expensive</strong> than the market price of the emissions it saves.
+        That's not an anti-EV result; it's the honest one. The financial case doesn't close, so the decision
+        rests on commitment, not the fuel bill.
+      </p>
+      <div class="chart-wrap">
+        <div class="chart-cap">€ per tonne of CO₂ avoided — real-world, 8-year horizon</div>
+        <canvas id="chartPremium"></canvas>
+      </div>
+    </div>
+
+    <!-- Efficiency ladder -->
+    <div class="content-block fade-up">
+      <h2>The efficiency ladder</h2>
+      <p>
+        Before electric even enters the picture, the hybrid already sits well below a conventional petrol car
+        on running cost. The ladder runs petrol → hybrid → electric — each step cheaper to run per 100 km. The
+        point is that the hybrid is already an efficient starting point, which is exactly why the EV's extra
+        purchase cost is so hard to justify on money alone.
+      </p>
+      <div class="chart-wrap">
+        <div class="chart-cap">Running cost — € per 100 km, real-world</div>
+        <canvas id="chartLadder"></canvas>
+      </div>
+    </div>
+
+    <!-- Driving habits / fuel by road type -->
+    <div class="content-block fade-up">
+      <h2>How a hybrid really drives</h2>
+      <p>
+        With measured highway distance for every trip, the fuel split reveals the counter-intuitive truth about
+        hybrids: they're <strong>thirstiest on the highway</strong> (steady high speed, little regeneration) and
+        <strong>most efficient in town</strong> — the opposite of a conventional car. My driving is 59% highway,
+        right where the hybrid is weakest, and it still averages around 5 l/100 km. That's the real strength of
+        the car, visible only once the data is split by road type.
+      </p>
+      <div class="chart-wrap">
+        <div class="chart-cap">Fuel consumption by road type — l/100 km, measured</div>
+        <canvas id="chartFuel"></canvas>
+      </div>
+    </div>
+
+    <!-- The rigor: calibration -->
+    <div class="content-block fade-up">
+      <h2>The hard part — filling a data gap, and proving it</h2>
+      <p>
+        The car only recorded highway distance until its data feed stopped in 2024. Rather than drop the
+        post-2024 trips, I routed every trip's fastest path through the OpenRouteService API, measured the
+        motorway portion, and calibrated it against the years where the car's own measurement existed. A single
+        factor of <strong>0.893</strong> aligns the routed estimate to the measured truth.
+      </p>
+      <p>
+        Crucially, I didn't just impute the gap — I <strong>validated the imputation against ground truth</strong>.
+        Year by year, the calibrated estimate lands within ~2–3% of what the car actually recorded, so the same
+        method can be trusted for the years the car never measured.
+      </p>
+      <div class="chart-wrap">
+        <div class="chart-cap">Validation — measured vs calibrated highway km, by year</div>
+        <canvas id="chartCalib"></canvas>
+      </div>
+    </div>
+
+    <!-- Map -->
+    <div class="content-block fade-up">
+      <h2>Where the car goes</h2>
+      <p>
+        Every trip mapped as a heatmap — recurring corridors (Berlin ↔ family in Slovakia and Hungary) burn
+        darkest, and the holiday-season cross-border pattern is visible at a glance. Coordinates are
+        deliberately offset for privacy.
+      </p>
+      <iframe src="trip_map.html" class="map-embed" title="Trip heatmap" loading="lazy"></iframe>
+    </div>
+
+    <!-- How it was built -->
+    <div class="content-block fade-up">
+      <h2>How it was built</h2>
+      <p>
+        A full analytics-engineering pipeline, all local and free. Python scripts prepare the raw telematics and
+        enrich each trip (per-trip temperature from the Open-Meteo archive, routed highway from OpenRouteService).
+        <strong>dbt</strong> models the data in layers — staging → intermediate → marts — on a local
+        <strong>DuckDB</strong> warehouse, with tests on every key column. The published site is static, generated
+        straight from the marts.
+      </p>
+      <p>
+        The core idea is a single fact table costing every trip under every car and every consumption source
+        (lab, community real-world, and my own measured driving), so all the comparisons downstream — the ladder,
+        the green premium, the road-type split — fall out of one consistent model.
+      </p>
+      <div class="code-block">
+        <div class="code-block-toggle">
+          <span class="code-block-label">dbt model · highway calibration factor</span>
+          <span class="code-block-chevron">▾</span>
+        </div>
+        <div class="code-block-body">
+<pre><span class="code-cm">-- one number that aligns routed motorway to the car's measured highway,</span>
+<span class="code-cm">-- computed only on the months where both exist (the overlap)</span>
+<span class="code-kw">with</span> overlap <span class="code-kw">as</span> (
+    <span class="code-kw">select</span>
+        <span class="code-fn">sum</span>(measured_hw_km) <span class="code-kw">as</span> measured,
+        <span class="code-fn">sum</span>(routed_hw_km)   <span class="code-kw">as</span> routed
+    <span class="code-kw">from</span> {{ <span class="code-fn">ref</span>(<span class="code-st">'mart_highway_calibration'</span>) }}
+    <span class="code-kw">where</span> measured_hw_km <span class="code-kw">is not null</span>
+)
+<span class="code-kw">select</span>
+    <span class="code-fn">round</span>(measured / <span class="code-fn">nullif</span>(routed, <span class="code-nu">0</span>), <span class="code-nu">3</span>) <span class="code-kw">as</span> calibration_factor
+<span class="code-kw">from</span> overlap</pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- Findings -->
+    <div class="content-block fade-up">
+      <h2>What the data showed</h2>
+      <div class="finding-grid">
+        <div class="finding-card">
+          <div class="finding-icon">⚖️</div>
+          <div class="finding-title">EVs cost €6–8k per tonne CO₂</div>
+          <div class="finding-text">~75–100× the EU carbon price. Replacing a paid-off hybrid is an expensive way to cut emissions.</div>
+        </div>
+        <div class="finding-card">
+          <div class="finding-icon">🛣️</div>
+          <div class="finding-title">Thirstiest on the highway</div>
+          <div class="finding-text">5.3 l/100 km on motorways vs 4.3 in town — the hybrid pattern is the reverse of a conventional car.</div>
+        </div>
+        <div class="finding-card">
+          <div class="finding-icon">🎯</div>
+          <div class="finding-title">Imputation validated to ±2–3%</div>
+          <div class="finding-text">Routed highway, calibrated against the car's own measurements year by year before being trusted.</div>
+        </div>
+        <div class="finding-card">
+          <div class="finding-icon">🌍</div>
+          <div class="finding-title">A commitment, not a calculation</div>
+          <div class="finding-text">The money never balances on a working hybrid — so the EV case is environmental, made with eyes open.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div class="contact-links">
+      <a href="mailto:imre.tamas@gmail.com" class="contact-link"><span class="contact-dot"></span> imre.tamas@gmail.com</a>
+      <a href="https://linkedin.com/in/tamas-imre-analyst" class="contact-link" target="_blank" rel="noopener"><span class="contact-dot"></span> LinkedIn</a>
+      <a href="https://github.com/imretamas-analyst" class="contact-link" target="_blank" rel="noopener"><span class="contact-dot"></span> GitHub</a>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copy mono">Berlin, Germany</span>
+      <span class="footer-privacy mono">Personal data project · coordinates offset for privacy</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // collapsible code block (matches the portfolio's pattern)
+  document.querySelectorAll('.code-block-toggle').forEach(function (t) {
+    t.addEventListener('click', function () { t.parentElement.classList.toggle('open'); });
+  });
+
+  var ink = '#1a1916', gray = '#c8c5bc', blue = '#185FA5', red = '#a32d2d', green = '#2f8f6b';
+  var grid = '#ecece6';
+  var baseOpts = {
+    responsive: true, maintainAspectRatio: true,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { display: false }, ticks: { font: { family: 'DM Mono', size: 11 }, color: '#5c5a54' } },
+      y: { grid: { color: grid }, ticks: { font: { family: 'DM Mono', size: 11 }, color: '#9c9a94' }, beginAtZero: true }
+    }
+  };
+
+  new Chart(document.getElementById('chartPremium'), {
+    type: 'bar',
+    data: { labels: ['VW ID.4', 'Hyundai Ioniq 5', 'Kia EV6'],
+      datasets: [{ data: [6101, 7497, 8064], backgroundColor: [ink, ink, red], borderRadius: 2, barThickness: 46 }] },
+    options: Object.assign({}, baseOpts, { scales: Object.assign({}, baseOpts.scales, {
+      y: Object.assign({}, baseOpts.scales.y, { ticks: Object.assign({}, baseOpts.scales.y.ticks, { callback: function (v) { return '€' + v.toLocaleString(); } }) }) }) })
+  });
+
+  new Chart(document.getElementById('chartLadder'), {
+    type: 'bar',
+    data: { labels: ['Corolla 1.8 (petrol)', 'Corolla Hybrid', 'Kia EV6', 'Hyundai Ioniq 5', 'VW ID.4'],
+      datasets: [{ data: [10.04, 9.29, 7.26, 7.02, 6.88], backgroundColor: [red, ink, blue, blue, blue], borderRadius: 2, barThickness: 38 }] },
+    options: Object.assign({}, baseOpts, { scales: Object.assign({}, baseOpts.scales, {
+      y: Object.assign({}, baseOpts.scales.y, { ticks: Object.assign({}, baseOpts.scales.y.ticks, { callback: function (v) { return '€' + v.toFixed(0); } }) }) }) })
+  });
+
+  new Chart(document.getElementById('chartFuel'), {
+    type: 'bar',
+    data: { labels: ['City', 'Mixed', 'Highway'],
+      datasets: [{ data: [4.29, 4.33, 5.31], backgroundColor: [green, gray, red], borderRadius: 2, barThickness: 60 }] },
+    options: Object.assign({}, baseOpts, { scales: Object.assign({}, baseOpts.scales, {
+      y: Object.assign({}, baseOpts.scales.y, { ticks: Object.assign({}, baseOpts.scales.y.ticks, { callback: function (v) { return v.toFixed(1); } }) }) }) })
+  });
+
+  new Chart(document.getElementById('chartCalib'), {
+    type: 'bar',
+    data: { labels: ['2022', '2023', '2024'],
+      datasets: [
+        { label: 'Measured', data: [6601, 5196, 2226], backgroundColor: ink, borderRadius: 2 },
+        { label: 'Calibrated', data: [6437, 5294, 2292], backgroundColor: blue, borderRadius: 2 }
+      ] },
+    options: Object.assign({}, baseOpts, { plugins: { legend: { display: true, labels: { font: { family: 'DM Mono', size: 11 }, color: '#5c5a54', boxWidth: 10 } } },
+      scales: Object.assign({}, baseOpts.scales, {
+      y: Object.assign({}, baseOpts.scales.y, { ticks: Object.assign({}, baseOpts.scales.y.ticks, { callback: function (v) { return (v/1000).toFixed(0) + 'k'; } }) }) }) })
+  });
+</script>
+
+</body>
+</html>
