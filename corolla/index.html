@@ -127,16 +127,17 @@
     <div class="content-block fade-up">
       <h2>How a hybrid really drives</h2>
       <p>
-        With measured highway distance for every trip, the fuel split reveals the counter-intuitive truth about
-        hybrids: they're <strong>thirstiest on the highway</strong> (steady high speed, little regeneration) and
-        <strong>most efficient in town</strong> — the opposite of a conventional car. My driving is 55% highway,
-        right where the hybrid is weakest, and it still averages around 5 l/100 km. That's the real strength of
-        the car, visible only once the data is split by road type.
+        Splitting fuel use by road type shows the hybrid's signature: it's <strong>thirstiest on the highway</strong>
+        — 5.3 l/100 km at steady high speed, where there's little braking to regenerate — and noticeably
+        <strong>leaner in town</strong> at 4.4, the opposite of a conventional car. The striking part: 55% of my
+        distance is highway, the hybrid's weakest setting, yet all driving combined still averages
+        <strong>4.97 l/100 km</strong>. That's the real strength of the car.
       </p>
       <div class="chart-wrap">
-        <div class="chart-cap">Fuel consumption by road type — l/100 km, measured</div>
+        <div class="chart-cap">Fuel — l/100 km: town vs highway trips, and all driving combined</div>
         <canvas id="chartFuel"></canvas>
       </div>
+      <p class="note" style="margin-top:0.5rem;">Town = trips that stay off the motorway; Highway = mostly-motorway trips; Overall = every kilometre combined.</p>
     </div>
 
     <!-- The rigor: calibration -->
@@ -292,8 +293,8 @@
 
   new Chart(document.getElementById('chartFuel'), {
     type: 'bar',
-    data: { labels: ['City', 'Mixed', 'Highway'],
-      datasets: [{ data: [4.44, 4.33, 5.31], backgroundColor: [green, gray, red], borderRadius: 2, barThickness: 60 }] },
+    data: { labels: ['Town / local', 'Highway', 'Overall'],
+      datasets: [{ data: [4.44, 5.31, 4.97], backgroundColor: [green, red, ink], borderRadius: 2, barThickness: 60 }] },
     options: Object.assign({}, baseOpts, { scales: Object.assign({}, baseOpts.scales, {
       y: Object.assign({}, baseOpts.scales.y, { ticks: Object.assign({}, baseOpts.scales.y.ticks, { callback: function (v) { return v.toFixed(1); } }) }) }) })
   });
